@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Dices, Lock, LockOpen, ClipboardCopy, Check, Bookmark, BookmarkPlus, X, Trash2, Upload, Download, Pencil } from "lucide-react";
 
 // ============================================================
@@ -1137,7 +1137,23 @@ export default function InnGenerator() {
   // To persist saves on the deployed site, replace this with localStorage:
   //   on mount: const saved = localStorage.getItem("wayfarers-stable"); if (saved) setSavedInns(JSON.parse(saved));
   //   on change: useEffect(() => localStorage.setItem("wayfarers-stable", JSON.stringify(savedInns)), [savedInns]);
-  const [savedInns, setSavedInns] = useState([]);
+  const [savedInns, setSavedInns] = useState(() => {
+    try {
+      const saved = localStorage.getItem("wayfarers-stable");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Persist saves to the browser whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem("wayfarers-stable", JSON.stringify(savedInns));
+    } catch {
+      // localStorage full or disabled — saves will be in-session only
+    }
+  }, [savedInns]);
   const [stableOpen, setStableOpen] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
   const [pendingNote, setPendingNote] = useState("");
