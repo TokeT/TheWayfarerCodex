@@ -1475,9 +1475,6 @@ export default function InnGenerator() {
             {/* Hero — name */}
             <div className="flex items-start gap-5 mb-6">
               <div className="flex-1 min-w-0">
-                <div className="text-[10px] tracking-[0.3em] uppercase text-[#1a1410]/50 mb-1">
-                  {inn.type}
-                </div>
                 <h1
                   className="text-3xl md:text-5xl leading-tight text-[#1a1410]"
                   style={{ fontFamily: '"IM Fell English SC", "EB Garamond", serif', fontWeight: 400 }}
