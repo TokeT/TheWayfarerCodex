@@ -1372,7 +1372,7 @@ export default function InnGenerator() {
   const allLocked = lockedCount === 12;
 
   return (
-    <div className="min-h-screen w-full bg-[#E8E1CC] text-[#1a1410] py-8 px-4 md:px-8" style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
+    <div className="min-h-screen w-full bg-[#F3F0E8] text-[#1a1410] py-8 px-4 md:px-8" style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Top bar */}
@@ -1397,7 +1397,7 @@ export default function InnGenerator() {
               onClick={() => setRegion(r)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
                 region === r
-                  ? "bg-[#6B1F2D] border-[#3d1219] text-[#E8E1CC]"
+                  ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
                   : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
               }`}
               style={{
@@ -1422,7 +1422,7 @@ export default function InnGenerator() {
               onClick={() => setTone(t)}
               className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
                 tone === t
-                  ? "bg-[#6B1F2D] border-[#3d1219] text-[#E8E1CC]"
+                  ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
                   : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
               }`}
               style={{
@@ -1442,7 +1442,7 @@ export default function InnGenerator() {
         <div className="flex justify-center mb-6">
           <button
             onClick={rerollAll}
-            className="px-10 py-4 bg-[#6B1F2D] text-[#E8E1CC] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
+            className="px-10 py-4 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
             <Dices size={18} />
@@ -1456,11 +1456,8 @@ export default function InnGenerator() {
         >
           <div className="relative py-4 md:py-6">
 
-            {/* Hero — name + heraldry */}
+            {/* Hero — name */}
             <div className="flex items-start gap-5 mb-6">
-              <div className="shrink-0 mt-1">
-                <HeraldicMark seed={inn.name} />
-              </div>
               <div className="flex-1 min-w-0">
                 <div className="text-[10px] tracking-[0.3em] uppercase text-[#1a1410]/50 mb-1">
                   {inn.type}
@@ -1703,7 +1700,7 @@ export default function InnGenerator() {
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={rerollAll}
-            className="px-5 py-3 bg-[#6B1F2D] text-[#E8E1CC] hover:bg-[#5a1825] transition-colors flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase"
+            className="px-5 py-3 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
             <Dices size={15} />
@@ -1762,7 +1759,7 @@ export default function InnGenerator() {
             onClick={() => setSaveDialogOpen(false)}
           >
             <div
-              className="bg-[#E8E1CC] text-[#1a1410] max-w-md w-full p-6 md:p-8 shadow-2xl"
+              className="bg-[#F3F0E8] text-[#1a1410] max-w-md w-full p-6 md:p-8 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
               style={{
                 backgroundImage: "radial-gradient(ellipse at top, rgba(184,146,74,0.08), transparent 60%)",
@@ -1806,7 +1803,7 @@ export default function InnGenerator() {
                 </button>
                 <button
                   onClick={confirmSave}
-                  className="px-5 py-2 bg-[#6B1F2D] text-[#E8E1CC] hover:bg-[#5a1825] transition-colors text-[11px] tracking-[0.2em] uppercase"
+                  className="px-5 py-2 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors text-[11px] tracking-[0.2em] uppercase"
                   style={{ fontFamily: '"IM Fell English SC", serif' }}
                 >
                   Pin to stable
@@ -1823,7 +1820,7 @@ export default function InnGenerator() {
             onClick={() => setStableOpen(false)}
           >
             <div
-              className="bg-[#E8E1CC] text-[#1a1410] max-w-3xl w-full my-8 shadow-2xl"
+              className="bg-[#F3F0E8] text-[#1a1410] max-w-3xl w-full my-8 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
               style={{
                 backgroundImage: "radial-gradient(ellipse at top, rgba(184,146,74,0.08), transparent 60%)",
@@ -1922,7 +1919,7 @@ export default function InnGenerator() {
                         <div className="flex justify-end">
                           <button
                             onClick={() => loadFromStable(entry)}
-                            className="px-3 py-1.5 border border-[#6B1F2D]/40 text-[#6B1F2D] hover:bg-[#6B1F2D] hover:text-[#E8E1CC] transition-colors text-[10px] tracking-[0.2em] uppercase"
+                            className="px-3 py-1.5 border border-[#6B1F2D]/40 text-[#6B1F2D] hover:bg-[#6B1F2D] hover:text-[#F3F0E8] transition-colors text-[10px] tracking-[0.2em] uppercase"
                             style={{ fontFamily: '"IM Fell English SC", serif' }}
                           >
                             Load this inn
