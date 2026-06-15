@@ -52,6 +52,21 @@ const KEEPER_DEMEANORS = [
   "gruff, but secretly delighted by good stories",
   "young and a little out of their depth, having inherited the place recently",
   "ancient, half-deaf, and absolutely in command",
+  "nervous, distracted, and watching the door more than the room",
+  "exacting and precise, treating service as a sacred trade",
+  "thoughtful and slow to answer, as though weighing each word for cost",
+  "charming in a way that feels rehearsed, though no less effective for it",
+  "brisk and businesslike, with no patience for ceremony",
+  "haunted-looking, but courteous, and a fine listener besides",
+  "effusive to strangers, oddly cool toward their own staff",
+  "prone to laughter at the wrong moments, and apologizing afterwards",
+  "bookish, soft-handed, and clearly not born to this work",
+  "bristling with old grievances they will, given any opening, recount in full",
+  "generous with their food and stingy with their words",
+  "a recent widow or widower, and only half here on most evenings",
+  "formal in a way that suggests they once served a much grander house",
+  "merry on the surface, with a tiredness that surfaces between rounds",
+  "talkative when sober, silent after the third cup",
 ];
 
 const KEEPER_SECRETS = [
@@ -67,6 +82,19 @@ const KEEPER_SECRETS = [
   "is bound by an old oath to provide shelter to any who ask, no matter the cost",
   "knows the true location of a buried treasure but is too afraid to dig it up",
   "has been replaced — recently, perhaps — by something that wears their face well enough",
+  "is the third in a line of keepers using the same name; no one has noticed",
+  "is searching, very patiently, for the person who killed their younger brother",
+  "has been working off an old curse, one guest at a time, for longer than anyone knows",
+  "is a deposed noble traveling as a commoner, and has begun to enjoy it more than expected",
+  "holds a sealed letter that, opened, would unmake a neighboring lord",
+  "lost a child at sea twelve years ago, and still sets a place for them at the long table",
+  "is fluent in three languages they refuse to admit to speaking",
+  "has been smuggling something small but important across the border in the bedding",
+  "is collecting evidence against a powerful magistrate, very slowly, very carefully",
+  "once spent a year as a prisoner of war and has never spoken of it",
+  "believes the inn itself is alive in some small way, and is probably correct",
+  "recognized one of the party from a portrait they have been carrying for years",
+  "knows exactly which floorboard the bones are under, and never walks across it",
 ];
 
 const KEEPER_WANTS = [
@@ -82,6 +110,19 @@ const KEEPER_WANTS = [
   "to be remembered fondly by at least a few of the guests who pass through",
   "to keep this place running through one more winter, the way they always do",
   "to make this inn the kind of place travelers tell stories about",
+  "to find out who their father was, before the trail goes cold",
+  "to die in this very building, and not somewhere on the road",
+  "to teach the old dog one new trick before the year is out",
+  "to read every book a particular guest left behind, and then read them again",
+  "to outlive a specific rival three towns over",
+  "to repay an old kindness no one remembers giving",
+  "to see the ocean once, having lived inland for sixty years",
+  "to talk a wayward niece into coming home",
+  "to finish a project in the attic no one is allowed to see",
+  "to apologize, properly, to someone they wronged long ago — if they can find them",
+  "to learn the truth about what happened the year before they were born",
+  "to write down everything they know before they begin to forget it",
+  "to stop dreaming, just for a night, of the place they came from",
 ];
 
 const OPENING_LINES = [
@@ -128,6 +169,19 @@ const PATRON_ACTIVITIES = [
   "is haggling over the price of a relic the keeper clearly doesn't want",
   "has just arrived, breathless, and asked for the keeper by name",
   "appears to be writing a letter and weeping silently",
+  "is showing off a fresh scar to an audience of two",
+  "has been telling the same story for an hour, and no one has the heart to leave",
+  "is sketching the other patrons in a small leather book, very deliberately",
+  "is waiting for someone who is not coming, and beginning to realize it",
+  "is cleaning a sword openly at the table, slowly, watching the room",
+  "has fallen suddenly silent and is staring at someone across the room",
+  "is arm-wrestling a much smaller opponent and losing badly",
+  "is whispering to a small caged bird on the table beside them",
+  "is comparing maps with a stranger, fingers tracing routes",
+  "is being interviewed by the bard in the corner, who is taking careful notes",
+  "is half-asleep, hat tipped forward, but their hand never leaves their belt",
+  "is feeding scraps to a dog that is not theirs, under the table",
+  "has just had an argument with their companion and is pretending nothing happened",
 ];
 
 const FOODS = [
@@ -154,6 +208,12 @@ const DRINKS = [
   ["Spiced mead from the hill country", 4, "cp"],
   ["Watered wine for the children", 1, "cp"],
   ["The 'Innkeeper's Mistake' — don't ask", 8, "cp"],
+  ["Hot tea, with honey if you ask nicely", 1, "cp"],
+  ["Buttered rum, on cold nights only", 5, "cp"],
+  ["Pear brandy — the keeper's own", 1, "sp"],
+  ["Mulled wine, kept warm on the hearth", 4, "cp"],
+  ["Small beer, weak and forgiving", 1, "cp"],
+  ["A draught of the dark stuff from behind the bar", 1, "sp"],
 ];
 
 const ROOM_OPTIONS = [
@@ -194,6 +254,14 @@ const QUIRKS = [
   "The drinks are all served in mismatched cups, and the keeper assigns them based on something only they understand.",
   "There is no clock, and the keeper grows visibly upset if anyone asks the hour.",
   "An old hunting dog sleeps by the fire. It is well over twenty years old and shows no signs of dying.",
+  "A great brass bell hangs by the door. No one knows what it is supposed to summon, but everyone agrees not to ring it.",
+  "The keeper greets every new guest with the same exact phrase, delivered with great care. No one has ever heard them deviate.",
+  "Every plate is marked on the underside with a different small symbol. Regulars learn which is theirs.",
+  "The fire is fed only by guests, never by the staff. A basket of split wood sits by the hearth for the purpose.",
+  "There is one window that is always shuttered, even on the warmest days, and no one will explain why.",
+  "A long mirror hangs at the foot of the stairs. Guests are gently asked not to look into it after dark.",
+  "A framed page from an unknown book hangs above the bar. The text is in a script no one present can read.",
+  "Above each table is a small lantern with colored glass. The keeper changes which color hangs where on certain nights, and only they know the meaning.",
 ];
 
 const TROUBLES = [
@@ -207,6 +275,16 @@ const TROUBLES = [
   "Someone has been stealing small items from the guests — buttons, a comb, a single boot — and leaving copper coins in their place.",
   "The dog won't go near the back hall, and growls if pushed.",
   "There is a sealed letter behind the bar, addressed to no one, that the keeper has been told to give to 'whoever asks for it correctly.'",
+  "A new serving girl started three days ago. No one — including the staff — can quite remember who hired her.",
+  "The keeper has been counting heads in the common room every quarter hour, frowning, and shaking their head.",
+  "There is fresh mud on the back stairs at dawn, every dawn this week, and no one will admit to having gone out.",
+  "A guest staying for three days has not been seen to eat, drink, or sleep, and the staff have been told not to ask.",
+  "The horses in the stable were spooked badly an hour before dawn. There were no tracks in the snow around the building.",
+  "Someone has been adding names to the guest book in a hand the keeper does not recognize, dated for next week.",
+  "The shutters on the second floor were all open this morning, every one of them, and no one will admit to opening them.",
+  "There is a coin in the till that should not be there — old, foreign, struck in a year that does not exist on any king's reign.",
+  "A second cellar door has appeared behind a stack of barrels. The keeper does not remember a second cellar door.",
+  "The cat that has lived at the inn for six years will not come inside tonight, no matter the coaxing.",
 ];
 
 // ============================================================
