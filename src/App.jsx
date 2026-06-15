@@ -1391,91 +1391,103 @@ export default function InnGenerator() {
     <div className="min-h-screen w-full bg-[#F3F0E8] text-[#1a1410] py-8 px-4 md:px-8" style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
       <div className="max-w-6xl mx-auto">
 
-        {/* Top bar — title with explainer tucked beneath, Saved Inns on the right */}
-        <div className="flex items-start justify-between mb-6 text-[#1a1410]/70 gap-4">
-          <div className="flex-1 min-w-0 max-w-xl">
-            <div
-              className="text-[20px] tracking-wide"
-              style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-            >
-              Tavern Tales Creator
-            </div>
-            <p
-              className="mt-2 text-[14px] leading-relaxed italic text-[#1a1410]/65"
-              style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-            >
-              Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
-            </p>
+        {/* Top bar — title and explainer, left-aligned */}
+        <div className="max-w-xl text-[#1a1410]/70">
+          <div
+            className="text-[20px] tracking-wide"
+            style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+          >
+            Tavern Tales Creator
           </div>
+          <p
+            className="mt-2 text-[14px] leading-relaxed italic text-[#1a1410]/65"
+            style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+          >
+            Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
+          </p>
+        </div>
+
+        {/* Hairline divider between branding and controls */}
+        <div className="border-t border-[#1a1410]/15 my-6" />
+
+        {/* Controls zone — spacer | centered Region/Tone/Roll | Saved Inns on the right */}
+        <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-4 mb-6">
+
+          {/* Left spacer — keeps the centered controls actually centered */}
+          <div />
+
+          {/* Centered controls column */}
+          <div className="flex flex-col items-center gap-2">
+
+            {/* Region selector */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Region</span>
+              {REGION_LIST.map(r => (
+                <button
+                  key={r}
+                  onClick={() => { setRegion(r); rerollAll(r, tone); }}
+                  className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
+                    region === r
+                      ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
+                      : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
+                  }`}
+                  style={{
+                    fontFamily: '"IM Fell English SC", serif',
+                    boxShadow: region === r
+                      ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
+                      : "0 1px 0 rgba(0, 0, 0, 0.08)",
+                  }}
+                  aria-pressed={region === r}
+                >
+                  {REGION_LABELS[r]}
+                </button>
+              ))}
+            </div>
+
+            {/* Tone selector */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Tone</span>
+              {TONE_LIST.map(t => (
+                <button
+                  key={t}
+                  onClick={() => { setTone(t); rerollAll(region, t); }}
+                  className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
+                    tone === t
+                      ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
+                      : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
+                  }`}
+                  style={{
+                    fontFamily: '"IM Fell English SC", serif',
+                    boxShadow: tone === t
+                      ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
+                      : "0 1px 0 rgba(0, 0, 0, 0.08)",
+                  }}
+                  aria-pressed={tone === t}
+                >
+                  {TONE_LABELS[t]}
+                </button>
+              ))}
+            </div>
+
+            {/* Primary roll button — applies current Region + Tone */}
+            <button
+              onClick={rerollAll}
+              className="mt-2 px-10 py-4 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
+              style={{ fontFamily: '"IM Fell English SC", serif' }}
+            >
+              <Dices size={18} />
+              Roll New Entry
+            </button>
+          </div>
+
+          {/* Saved Inns — sits on the right, top-aligned with the Region row */}
           <button
             onClick={() => setStableOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors text-[10px] tracking-[0.25em] uppercase shrink-0"
+            className="justify-self-end flex items-center gap-2 px-3 py-1.5 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors text-[10px] tracking-[0.25em] uppercase"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
             <Bookmark size={12} />
             Saved Inns ({savedInns.length})
-          </button>
-        </div>
-
-        {/* Region selector */}
-        <div className="mb-2 flex flex-wrap items-center justify-center gap-1.5">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Region</span>
-          {REGION_LIST.map(r => (
-            <button
-              key={r}
-              onClick={() => { setRegion(r); rerollAll(r, tone); }}
-              className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
-                region === r
-                  ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
-                  : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
-              }`}
-              style={{
-                fontFamily: '"IM Fell English SC", serif',
-                boxShadow: region === r
-                  ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
-                  : "0 1px 0 rgba(0, 0, 0, 0.08)",
-              }}
-              aria-pressed={region === r}
-            >
-              {REGION_LABELS[r]}
-            </button>
-          ))}
-        </div>
-
-        {/* Tone selector */}
-        <div className="mb-4 flex flex-wrap items-center justify-center gap-1.5">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Tone</span>
-          {TONE_LIST.map(t => (
-            <button
-              key={t}
-              onClick={() => { setTone(t); rerollAll(region, t); }}
-              className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
-                tone === t
-                  ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
-                  : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
-              }`}
-              style={{
-                fontFamily: '"IM Fell English SC", serif',
-                boxShadow: tone === t
-                  ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
-                  : "0 1px 0 rgba(0, 0, 0, 0.08)",
-              }}
-              aria-pressed={tone === t}
-            >
-              {TONE_LABELS[t]}
-            </button>
-          ))}
-        </div>
-
-        {/* Primary roll button — applies current Region + Tone */}
-        <div className="flex justify-center mb-6">
-          <button
-            onClick={rerollAll}
-            className="px-10 py-4 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
-            style={{ fontFamily: '"IM Fell English SC", serif' }}
-          >
-            <Dices size={18} />
-            Roll New Entry
           </button>
         </div>
 
