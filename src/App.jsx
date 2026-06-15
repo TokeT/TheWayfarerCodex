@@ -1523,7 +1523,9 @@ export default function InnGenerator() {
                 onReroll={() => rerollSection("floorPlan")}
               />
               <div className="bg-[#1a1410]/[0.015] border border-[#1a1410]/10 px-3 py-4 md:px-6 md:py-5">
-                <FloorPlan variant={inn.floorPlan} innName={inn.name} />
+                <div className="max-w-xl mx-auto">
+                  <FloorPlan variant={inn.floorPlan} innName={inn.name} />
+                </div>
               </div>
               <p className="text-[11px] text-[#1a1410]/45 mt-2 italic"
                  style={{ fontFamily: '"IM Fell English", serif' }}>
