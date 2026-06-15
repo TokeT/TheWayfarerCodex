@@ -915,13 +915,13 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
       <div className="flex gap-1">
         <button
           onClick={onLock}
-          className="p-1.5 hover:bg-[#1a1410]/5 rounded transition-colors"
+          className={`p-1.5 rounded transition-colors ${locked ? "bg-[#1a1410]/5" : "hover:bg-[#1a1410]/5"}`}
           title={locked ? "Unlock — will reroll" : "Lock — keep on reroll"}
           aria-label={locked ? "Unlock section" : "Lock section"}
         >
           {locked
             ? <Lock size={17} className="text-[#6B1F2D]" />
-            : <LockOpen size={17} className="text-[#6B1F2D]/40" />}
+            : <LockOpen size={17} className="text-[#6B1F2D]" />}
         </button>
         <button
           onClick={onReroll}
@@ -930,7 +930,7 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
           title="Reroll just this section"
           aria-label="Reroll section"
         >
-          <Dices size={17} className="text-[#6B1F2D]/60" />
+          <Dices size={17} className="text-[#6B1F2D]" />
         </button>
       </div>
     </div>
