@@ -1391,31 +1391,31 @@ export default function InnGenerator() {
     <div className="min-h-screen w-full bg-[#F3F0E8] text-[#1a1410] py-8 px-4 md:px-8" style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
       <div className="max-w-6xl mx-auto">
 
-        {/* Top bar */}
-        <div className="flex items-center justify-between mb-4 text-[#1a1410]/70 gap-3">
-          <div
-            className="text-[20px] tracking-wide"
-            style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-          >
-            Tavern Tales Creator
+        {/* Top bar — title with explainer tucked beneath, Saved Inns on the right */}
+        <div className="flex items-start justify-between mb-6 text-[#1a1410]/70 gap-4">
+          <div className="flex-1 min-w-0 max-w-xl">
+            <div
+              className="text-[20px] tracking-wide"
+              style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+            >
+              Tavern Tales Creator
+            </div>
+            <p
+              className="mt-2 text-[14px] leading-relaxed italic text-[#1a1410]/65"
+              style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+            >
+              Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
+            </p>
           </div>
           <button
             onClick={() => setStableOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors text-[10px] tracking-[0.25em] uppercase"
+            className="flex items-center gap-2 px-3 py-1.5 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors text-[10px] tracking-[0.25em] uppercase shrink-0"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
             <Bookmark size={12} />
             Saved Inns ({savedInns.length})
           </button>
         </div>
-
-        {/* Intro — how it works */}
-        <p
-          className="max-w-2xl mx-auto mb-6 text-center text-[14px] leading-relaxed italic text-[#1a1410]/65"
-          style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-        >
-          Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
-        </p>
 
         {/* Region selector */}
         <div className="mb-2 flex flex-wrap items-center justify-center gap-1.5">
