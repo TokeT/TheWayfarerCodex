@@ -1391,20 +1391,43 @@ export default function InnGenerator() {
     <div className="min-h-screen w-full bg-[#F3F0E8] text-[#1a1410] py-8 px-4 md:px-8" style={{ fontFamily: '"EB Garamond", Georgia, serif' }}>
       <div className="max-w-6xl mx-auto">
 
-        {/* Top bar — title and explainer, left-aligned */}
-        <div className="max-w-xl text-[#1a1410]/70">
-          <div
-            className="text-[20px] tracking-wide"
-            style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-          >
-            Tavern Tales Creator
+        {/* Top bar — title and explainer on the left, Nightcloak Games credit on the right */}
+        <div className="flex items-start justify-between gap-6">
+          <div className="max-w-xl text-[#1a1410]/70">
+            <div
+              className="text-[20px] tracking-wide"
+              style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+            >
+              Tavern Tales Creator
+            </div>
+            <p
+              className="mt-2 text-[16px] leading-relaxed italic text-[#1a1410]/65"
+              style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+            >
+              Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
+            </p>
           </div>
-          <p
-            className="mt-2 text-[16px] leading-relaxed italic text-[#1a1410]/65"
-            style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+
+          {/* Powered by Nightcloak Games — top-right credit, links to studio site */}
+          <a
+            href="https://nightcloakgames.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 flex flex-col items-center group"
+            aria-label="Powered by Nightcloak Games"
           >
-            Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
-          </p>
+            <span
+              className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410]/40 mb-2 group-hover:text-[#1a1410]/70 transition-colors"
+              style={{ fontFamily: '"IM Fell English SC", "EB Garamond", serif' }}
+            >
+              Powered by
+            </span>
+            <img
+              src="/nightcloak-logo.png"
+              alt="Nightcloak Games"
+              className="h-20 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
+            />
+          </a>
         </div>
 
         {/* Hairline divider between branding and controls */}
