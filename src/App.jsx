@@ -1411,7 +1411,7 @@ export default function InnGenerator() {
 
         {/* Region selector */}
         <div className="mb-2 flex flex-wrap items-center justify-center gap-1.5">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410]/45 mr-2 w-14 text-right">Region</span>
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Region</span>
           {REGION_LIST.map(r => (
             <button
               key={r}
@@ -1436,7 +1436,7 @@ export default function InnGenerator() {
 
         {/* Tone selector */}
         <div className="mb-4 flex flex-wrap items-center justify-center gap-1.5">
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410]/45 mr-2 w-14 text-right">Tone</span>
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Tone</span>
           {TONE_LIST.map(t => (
             <button
               key={t}
@@ -1496,20 +1496,20 @@ export default function InnGenerator() {
               <div className="flex gap-1 shrink-0">
                 <button
                   onClick={() => toggleLock("name")}
-                  className="p-1.5 hover:bg-[#1a1410]/5 rounded"
+                  className={`p-1.5 rounded transition-colors ${locks.name ? "bg-[#1a1410]/5" : "hover:bg-[#1a1410]/5"}`}
                   aria-label="Lock name"
                 >
                   {locks.name
                     ? <Lock size={14} className="text-[#6B1F2D]" />
-                    : <LockOpen size={14} className="text-[#1a1410]/40" />}
+                    : <LockOpen size={14} className="text-[#6B1F2D]" />}
                 </button>
                 <button
                   onClick={() => rerollSection("name")}
-                  className="p-1.5 hover:bg-[#1a1410]/5 rounded disabled:opacity-30"
+                  className="p-1.5 hover:bg-[#1a1410]/5 rounded transition-colors disabled:opacity-30"
                   disabled={locks.name}
                   aria-label="Reroll name"
                 >
-                  <Dices size={14} className="text-[#1a1410]/60" />
+                  <Dices size={14} className="text-[#6B1F2D]" />
                 </button>
               </div>
             </div>
@@ -1604,7 +1604,7 @@ export default function InnGenerator() {
                   onLock={() => toggleLock("menu")}
                   onReroll={() => rerollSection("menu")}
                 />
-                <div className="text-[10px] tracking-[0.2em] uppercase text-[#1a1410]/50 mb-1.5">Board</div>
+                <div className="text-[10px] tracking-[0.2em] uppercase text-[#1a1410] mb-1.5">Board</div>
                 <ul className="text-lg leading-relaxed mb-3">
                   {inn.menu.food.map(([name, p, d], i) => (
                     <li key={i} className="flex justify-between gap-3 py-0.5">
@@ -1613,7 +1613,7 @@ export default function InnGenerator() {
                     </li>
                   ))}
                 </ul>
-                <div className="text-[10px] tracking-[0.2em] uppercase text-[#1a1410]/50 mb-1.5">Cellar</div>
+                <div className="text-[10px] tracking-[0.2em] uppercase text-[#1a1410] mb-1.5">Cellar</div>
                 <ul className="text-lg leading-relaxed">
                   {inn.menu.drink.map(([name, p, d], i) => (
                     <li key={i} className="flex justify-between gap-3 py-0.5">
