@@ -1394,7 +1394,7 @@ export default function InnGenerator() {
         {/* Top bar */}
         <div className="flex items-center justify-between mb-4 text-[#1a1410]/70 gap-3">
           <div
-            className="text-[14px] tracking-wide"
+            className="text-[16px] tracking-wide"
             style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
           >
             Tavern Tales Creator
