@@ -1264,10 +1264,10 @@ export default function InnGenerator() {
     }
   };
 
-  const rerollAll = () => {
+  const rerollAll = (overrideRegion = region, overrideTone = tone) => {
     setRolling(true);
     setTimeout(() => {
-      setInn(prev => generateAll(locks, prev, region, tone));
+      setInn(prev => generateAll(locks, prev, overrideRegion, overrideTone));
       setRolling(false);
     }, 220);
   };
@@ -1410,7 +1410,7 @@ export default function InnGenerator() {
           {REGION_LIST.map(r => (
             <button
               key={r}
-              onClick={() => setRegion(r)}
+              onClick={() => { setRegion(r); rerollAll(r, tone); }}
               className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
                 region === r
                   ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
@@ -1435,7 +1435,7 @@ export default function InnGenerator() {
           {TONE_LIST.map(t => (
             <button
               key={t}
-              onClick={() => setTone(t)}
+              onClick={() => { setTone(t); rerollAll(region, t); }}
               className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
                 tone === t
                   ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
