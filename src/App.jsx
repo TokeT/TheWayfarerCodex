@@ -921,7 +921,7 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
         >
           {locked
             ? <Lock size={17} className="text-[#6B1F2D]" />
-            : <LockOpen size={17} className="text-[#1a1410]/40" />}
+            : <LockOpen size={17} className="text-[#6B1F2D]/40" />}
         </button>
         <button
           onClick={onReroll}
@@ -930,7 +930,7 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
           title="Reroll just this section"
           aria-label="Reroll section"
         >
-          <Dices size={17} className="text-[#1a1410]/60" />
+          <Dices size={17} className="text-[#6B1F2D]/60" />
         </button>
       </div>
     </div>
