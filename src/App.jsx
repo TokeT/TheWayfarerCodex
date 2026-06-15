@@ -1409,6 +1409,14 @@ export default function InnGenerator() {
           </button>
         </div>
 
+        {/* Intro — how it works */}
+        <p
+          className="max-w-2xl mx-auto mb-6 text-center text-[14px] leading-relaxed italic text-[#1a1410]/65"
+          style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+        >
+          Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
+        </p>
+
         {/* Region selector */}
         <div className="mb-2 flex flex-wrap items-center justify-center gap-1.5">
           <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Region</span>
