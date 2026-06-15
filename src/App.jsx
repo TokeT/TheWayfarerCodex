@@ -1408,7 +1408,7 @@ export default function InnGenerator() {
         </div>
 
         {/* Hairline divider between branding and controls */}
-        <div className="border-t border-[#1a1410]/15 my-6" />
+        <div className="border-t border-[#1a1410]/15 my-10" />
 
         {/* Controls zone — spacer | centered Region/Tone/Roll | Saved Inns on the right */}
         <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-4 mb-6">
