@@ -1400,7 +1400,7 @@ export default function InnGenerator() {
             Tavern Tales Creator
           </div>
           <p
-            className="mt-2 text-[14px] leading-relaxed italic text-[#1a1410]/65"
+            className="mt-2 text-[16px] leading-relaxed italic text-[#1a1410]/65"
             style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
           >
             Click Roll New Entry for a complete tavern — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor. Lock any section to keep it, then roll again for the rest.
