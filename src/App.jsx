@@ -909,7 +909,7 @@ function generateAll(locks = {}, current = {}, region = "any", tone = "any") {
 function SectionHeader({ label, locked, onLock, onReroll }) {
   return (
     <div className="flex items-baseline justify-between mb-3 pb-2 border-b border-[#1a1410]/15">
-      <h2 className="text-[13px] tracking-[0.25em] uppercase text-[#6B1F2D] font-semibold" style={{ fontFamily: '"IM Fell English SC", "EB Garamond", serif' }}>
+      <h2 className="text-[14px] tracking-[0.25em] uppercase text-[#6B1F2D] font-semibold" style={{ fontFamily: '"IM Fell English SC", "EB Garamond", serif' }}>
         {label}
       </h2>
       <div className="flex gap-1">
@@ -920,8 +920,8 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
           aria-label={locked ? "Unlock section" : "Lock section"}
         >
           {locked
-            ? <Lock size={15} className="text-[#6B1F2D]" />
-            : <LockOpen size={15} className="text-[#1a1410]/40" />}
+            ? <Lock size={17} className="text-[#6B1F2D]" />
+            : <LockOpen size={17} className="text-[#1a1410]/40" />}
         </button>
         <button
           onClick={onReroll}
@@ -930,7 +930,7 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
           title="Reroll just this section"
           aria-label="Reroll section"
         >
-          <Dices size={15} className="text-[#1a1410]/60" />
+          <Dices size={17} className="text-[#1a1410]/60" />
         </button>
       </div>
     </div>
