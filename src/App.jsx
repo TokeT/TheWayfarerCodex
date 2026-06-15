@@ -1346,7 +1346,7 @@ export default function InnGenerator() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `wayfarers-codex-stable-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `wayfarers-codex-saved-inns-${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1393,14 +1393,19 @@ export default function InnGenerator() {
 
         {/* Top bar */}
         <div className="flex items-center justify-between mb-4 text-[#1a1410]/70 gap-3">
-          <div className="text-[10px] tracking-[0.3em] uppercase">The Wayfarer's Codex</div>
+          <div
+            className="text-[14px] tracking-wide"
+            style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+          >
+            Tavern Tales Creator
+          </div>
           <button
             onClick={() => setStableOpen(true)}
             className="flex items-center gap-2 px-3 py-1.5 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors text-[10px] tracking-[0.25em] uppercase"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
             <Bookmark size={12} />
-            Stable ({savedInns.length})
+            Saved Inns ({savedInns.length})
           </button>
         </div>
 
@@ -1718,10 +1723,10 @@ export default function InnGenerator() {
                 : "border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45"
             }`}
             style={{ fontFamily: '"IM Fell English SC", serif' }}
-            title={isPinned ? "Already in your stable" : "Save this inn to your stable"}
+            title={isPinned ? "Already saved" : "Save this inn"}
           >
             {isPinned ? <Check size={13} /> : <BookmarkPlus size={13} />}
-            {isPinned ? "In Stable" : "Pin to Stable"}
+            {isPinned ? "Saved" : "Save Inn"}
           </button>
           <button
             onClick={copyEntry}
@@ -1762,7 +1767,7 @@ export default function InnGenerator() {
             >
               <div className="text-[10px] tracking-[0.3em] uppercase text-[#6B1F2D] mb-2"
                    style={{ fontFamily: '"IM Fell English SC", serif' }}>
-                Pin to your stable
+                Save this inn
               </div>
               <div className="text-2xl mb-1 leading-tight"
                    style={{ fontFamily: '"IM Fell English SC", serif' }}>
@@ -1801,7 +1806,7 @@ export default function InnGenerator() {
                   className="px-5 py-2 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors text-[11px] tracking-[0.2em] uppercase"
                   style={{ fontFamily: '"IM Fell English SC", serif' }}
                 >
-                  Pin to stable
+                  Save Inn
                 </button>
               </div>
             </div>
@@ -1826,7 +1831,7 @@ export default function InnGenerator() {
                 <div>
                   <div className="text-[10px] tracking-[0.3em] uppercase text-[#6B1F2D]"
                        style={{ fontFamily: '"IM Fell English SC", serif' }}>
-                    Your Stable
+                    Saved Inns
                   </div>
                   <div className="text-[12px] text-[#1a1410]/55 mt-1">
                     {savedInns.length === 0
@@ -1837,7 +1842,7 @@ export default function InnGenerator() {
                 <button
                   onClick={() => setStableOpen(false)}
                   className="p-2 hover:bg-[#1a1410]/5 rounded transition-colors"
-                  aria-label="Close stable"
+                  aria-label="Close saved inns"
                 >
                   <X size={18} className="text-[#1a1410]/60" />
                 </button>
@@ -1848,7 +1853,7 @@ export default function InnGenerator() {
                 {savedInns.length === 0 ? (
                   <div className="text-center py-8 text-[#1a1410]/55 text-[14px] italic"
                        style={{ fontFamily: '"IM Fell English", serif' }}>
-                    Your stable is empty. Pin generated inns to start collecting them.
+                    No inns saved yet. Save the ones you'd like to keep for later.
                   </div>
                 ) : (
                   <ul className="space-y-4">
@@ -1872,7 +1877,7 @@ export default function InnGenerator() {
                           <button
                             onClick={() => deleteFromStable(entry.id)}
                             className="p-1.5 text-[#1a1410]/40 hover:text-[#6B1F2D] hover:bg-[#1a1410]/5 rounded transition-colors shrink-0"
-                            aria-label="Delete from stable"
+                            aria-label="Delete saved inn"
                             title="Delete"
                           >
                             <Trash2 size={14} />
