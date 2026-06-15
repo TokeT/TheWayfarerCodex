@@ -1239,13 +1239,29 @@ export default function InnGenerator() {
   const fileInputRef = useRef(null);
 
   const toggleLock = (key) => {
-    setLocks(prev => ({ ...prev, [key]: !prev[key] }));
+    setLocks(prev => {
+      const next = { ...prev, [key]: !prev[key] };
+      // The description (exterior) is now visually tied to the inn name —
+      // keep their lock states in sync.
+      if (key === "name") next.exterior = next.name;
+      return next;
+    });
   };
 
   const rerollSection = (key) => {
     const partial = { [key]: false };
     const fresh = generateAll(partial, {}, region, tone);
-    setInn(prev => ({ ...prev, [key]: fresh[key] }));
+    if (key === "name") {
+      // The description (exterior) is tied to the inn name — reroll it together.
+      setInn(prev => ({
+        ...prev,
+        name: fresh.name,
+        exterior: fresh.exterior,
+        openingLine: fresh.openingLine,
+      }));
+    } else {
+      setInn(prev => ({ ...prev, [key]: fresh[key] }));
+    }
   };
 
   const rerollAll = () => {
@@ -1468,6 +1484,12 @@ export default function InnGenerator() {
                 >
                   {inn.name}
                 </h1>
+                <p
+                  className="text-base md:text-lg leading-relaxed italic text-[#1a1410]/75 mt-2"
+                  style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+                >
+                  {inn.exterior}
+                </p>
               </div>
               <div className="flex gap-1 shrink-0">
                 <button
@@ -1486,30 +1508,6 @@ export default function InnGenerator() {
                   aria-label="Reroll name"
                 >
                   <Dices size={14} className="text-[#1a1410]/60" />
-                </button>
-              </div>
-            </div>
-
-            {/* First impression */}
-            <div className="mb-10 pl-4 border-l-2 border-[#6B1F2D]/40">
-              <p
-                className="text-[12px] tracking-[0.25em] uppercase italic text-[#1a1410]/55 mb-3"
-                style={{ fontFamily: '"IM Fell English SC", serif' }}
-              >
-                {inn.openingLine}
-              </p>
-              <p
-                className="text-lg md:text-xl leading-relaxed italic text-[#1a1410]/80"
-                style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-              >
-                {inn.exterior}
-              </p>
-              <div className="flex gap-1 mt-2">
-                <button onClick={() => toggleLock("exterior")} className="p-1 hover:bg-[#1a1410]/5 rounded" aria-label="Lock exterior">
-                  {locks.exterior ? <Lock size={11} className="text-[#6B1F2D]" /> : <LockOpen size={11} className="text-[#1a1410]/40" />}
-                </button>
-                <button onClick={() => rerollSection("exterior")} disabled={locks.exterior} className="p-1 hover:bg-[#1a1410]/5 rounded disabled:opacity-30" aria-label="Reroll exterior">
-                  <Dices size={11} className="text-[#1a1410]/60" />
                 </button>
               </div>
             </div>
