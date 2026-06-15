@@ -1425,7 +1425,7 @@ export default function InnGenerator() {
             <img
               src="/nightcloak-logo.png"
               alt="Nightcloak Games"
-              className="h-20 w-auto opacity-90 group-hover:opacity-100 transition-opacity"
+              className="h-20 w-auto opacity-90 group-hover:opacity-100 transition-opacity mix-blend-multiply"
             />
           </a>
         </div>
