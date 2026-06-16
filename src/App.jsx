@@ -19,11 +19,10 @@ const INN_TYPES = [
   "Hunting lodge", "Pilgrim's rest", "Forest waystation",
 ];
 
-// Floor plan variants — small structural differences so rerolls feel meaningful
+// Hand-drawn tavern floor plans. Each is a path to an image in /public.
+// More drawings get added by uploading the PNG to public/ and adding a line here.
 const FLOORPLAN_VARIANTS = [
-  { barSide: "west", hearthSide: "east", tableArrangement: "grid" },
-  { barSide: "east", hearthSide: "west", tableArrangement: "diagonal" },
-  { barSide: "west", hearthSide: "east", tableArrangement: "clustered" },
+  "/tavern_wilderness_01.png",
 ];
 
 const EXTERIORS = [
@@ -1096,110 +1095,15 @@ function StairsUp({ x, y, w, h }) {
 }
 
 function FloorPlan({ variant, innName }) {
-  const v = variant || FLOORPLAN_VARIANTS[0];
-  const barOnWest = v.barSide === "west";
-
-  // Table positions vary by arrangement
-  const tables = (() => {
-    if (v.tableArrangement === "diagonal") {
-      return [
-        { cx: 75, cy: 32 }, { cx: 105, cy: 45 },
-        { cx: 75, cy: 58 }, { cx: 130, cy: 68 },
-      ];
-    }
-    if (v.tableArrangement === "clustered") {
-      return [
-        { cx: 85, cy: 38 }, { cx: 105, cy: 38 },
-        { cx: 85, cy: 62 }, { cx: 105, cy: 62 },
-      ];
-    }
-    // grid
-    return [
-      { cx: 70, cy: 36 }, { cx: 110, cy: 36 },
-      { cx: 70, cy: 62 }, { cx: 110, cy: 62 },
-    ];
-  })();
-
-  // Bar position based on variant
-  const bar = barOnWest
-    ? { x: 14, y: 25, w: 6, h: 44, stoolSide: "right" }
-    : { x: 180, y: 25, w: 6, h: 44, stoolSide: "left" };
-
-  // Hearth opposite the bar
-  const hearth = barOnWest
-    ? { x: 173, y: 34, w: 12, h: 18 }
-    : { x: 15, y: 34, w: 12, h: 18 };
-
+  // `variant` is a path to an image in /public.
+  // Defensive: if a legacy saved inn has the old object shape, fall back to the first drawing.
+  const src = typeof variant === "string" ? variant : FLOORPLAN_VARIANTS[0];
   return (
-    <svg viewBox="0 0 200 150" className="w-full h-auto block">
-      {/* Plan title */}
-      <text x="100" y="9" fontSize="3.8" textAnchor="middle"
-            fill={ACCENT} letterSpacing="1.5"
-            style={{ fontFamily: '"IM Fell English SC", serif' }}>
-        GROUND PLAN
-      </text>
-
-      {/* Outer walls */}
-      <rect x="10" y="15" width="180" height="115"
-            stroke={INK} strokeWidth="1.7" fill="none" />
-
-      {/* Horizontal inner wall (with door gaps) */}
-      <line x1="10" y1="82" x2="60" y2="82" stroke={INK} strokeWidth="1.3" />
-      <line x1="80" y1="82" x2="118" y2="82" stroke={INK} strokeWidth="1.3" />
-      <line x1="122" y1="82" x2="190" y2="82" stroke={INK} strokeWidth="1.3" />
-
-      {/* Vertical inner walls */}
-      <line x1="62" y1="82" x2="62" y2="130" stroke={INK} strokeWidth="1.3" />
-      <line x1="120" y1="82" x2="120" y2="130" stroke={INK} strokeWidth="1.3" />
-
-      {/* Door swings */}
-      {/* Main entrance south wall */}
-      <path d="M 92 130 A 8 8 0 0 0 100 122" stroke={INK} strokeWidth="0.6" fill="none" />
-      {/* Common room to kitchen */}
-      <path d="M 70 82 A 8 8 0 0 1 62 90" stroke={INK} strokeWidth="0.5" fill="none" />
-      {/* Common room to private dining */}
-      <path d="M 120 82 A 8 8 0 0 1 128 90" stroke={INK} strokeWidth="0.5" fill="none" />
-
-      {/* Furniture */}
-      <BarPiece {...bar} />
-      <Hearth {...hearth} />
-      {tables.map((t, i) => <Table key={i} cx={t.cx} cy={t.cy} />)}
-
-      {/* Stairs (always center) */}
-      <StairsUp x={84} y={92} w={32} h={32} />
-
-      {/* Kitchen counter */}
-      <rect x="14" y="88" width="42" height="4.5"
-            stroke={INK} strokeWidth="0.7"
-            fill={INK} fillOpacity="0.12" />
-      <Hearth x={48} y={102} w={9} h={14} />
-
-      {/* Private dining table */}
-      <rect x="140" y="98" width="34" height="14" rx="1"
-            stroke={INK} strokeWidth="0.8" fill="none" />
-      {[
-        [137, 105], [177, 105], [150, 95], [164, 95], [150, 115], [164, 115]
-      ].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="1.3"
-                stroke={INK} strokeWidth="0.6" fill="none" />
-      ))}
-
-      {/* Labels */}
-      <g style={{ fontFamily: '"IM Fell English SC", serif' }} fill={INK}>
-        <text x="100" y="50" fontSize="4.2" textAnchor="middle"
-              opacity="0.55" letterSpacing="1.2">COMMON ROOM</text>
-        <text x="36" y="118" fontSize="3" textAnchor="middle"
-              opacity="0.55" letterSpacing="0.8">KITCHEN</text>
-        <text x="100" y="137" fontSize="2.6" textAnchor="middle"
-              opacity="0.5" letterSpacing="0.8">STAIRS UP</text>
-        <text x="155" y="92" fontSize="3" textAnchor="middle"
-              opacity="0.55" letterSpacing="0.8">PRIVATE DINING</text>
-      </g>
-
-      {/* Compass and scale */}
-      <CompassRose x={183} y={22} />
-      <ScaleBar x={14} y={145} />
-    </svg>
+    <img
+      src={src}
+      alt={`Floor plan of ${innName}`}
+      className="w-full h-auto block mix-blend-multiply"
+    />
   );
 }
 
@@ -1572,7 +1476,7 @@ export default function InnGenerator() {
               </div>
               <p className="text-[11px] text-[#1a1410]/45 mt-2 italic"
                  style={{ fontFamily: '"IM Fell English", serif' }}>
-                Ground floor only. Upper rooms above the common hall, as is custom.
+                From the wayfarer's sketchbook.
               </p>
             </div>
 
