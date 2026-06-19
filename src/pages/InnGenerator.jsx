@@ -1108,6 +1108,10 @@ function FloorPlan({ variant, innName }) {
 }
 
 export default function InnGenerator() {
+  useEffect(() => {
+    document.title = "Tavern Tales Creator — Nightcloak Games";
+  }, []);
+
   const [region, setRegion] = useState("any");
   const [tone, setTone] = useState("any");
   const [inn, setInn] = useState(() => generateAll({}, {}, "any", "any"));
@@ -1337,84 +1341,67 @@ export default function InnGenerator() {
         {/* Hairline divider between branding and controls */}
         <div className="border-t border-[#1a1410]/15 my-10" />
 
-        {/* Controls zone — spacer | centered Region/Tone/Roll | Saved Inns on the right */}
-        <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-4 mb-6">
+        {/* Controls zone — Region / Tone / Roll button, centered */}
+        <div className="flex flex-col items-center gap-2 mb-6">
 
-          {/* Left spacer — keeps the centered controls actually centered */}
-          <div />
-
-          {/* Centered controls column */}
-          <div className="flex flex-col items-center gap-2">
-
-            {/* Region selector */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5">
-              <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Region</span>
-              {REGION_LIST.map(r => (
-                <button
-                  key={r}
-                  onClick={() => { setRegion(r); rerollAll(r, tone); }}
-                  className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
-                    region === r
-                      ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
-                      : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
-                  }`}
-                  style={{
-                    fontFamily: '"IM Fell English SC", serif',
-                    boxShadow: region === r
-                      ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
-                      : "0 1px 0 rgba(0, 0, 0, 0.08)",
-                  }}
-                  aria-pressed={region === r}
-                >
-                  {REGION_LABELS[r]}
-                </button>
-              ))}
-            </div>
-
-            {/* Tone selector */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5">
-              <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Tone</span>
-              {TONE_LIST.map(t => (
-                <button
-                  key={t}
-                  onClick={() => { setTone(t); rerollAll(region, t); }}
-                  className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
-                    tone === t
-                      ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
-                      : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
-                  }`}
-                  style={{
-                    fontFamily: '"IM Fell English SC", serif',
-                    boxShadow: tone === t
-                      ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
-                      : "0 1px 0 rgba(0, 0, 0, 0.08)",
-                  }}
-                  aria-pressed={tone === t}
-                >
-                  {TONE_LABELS[t]}
-                </button>
-              ))}
-            </div>
-
-            {/* Primary roll button — applies current Region + Tone */}
-            <button
-              onClick={rerollAll}
-              className="mt-2 px-10 py-4 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
-              style={{ fontFamily: '"IM Fell English SC", serif' }}
-            >
-              <Dices size={18} />
-              Roll New Entry
-            </button>
+          {/* Region selector */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Region</span>
+            {REGION_LIST.map(r => (
+              <button
+                key={r}
+                onClick={() => { setRegion(r); rerollAll(r, tone); }}
+                className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
+                  region === r
+                    ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
+                    : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
+                }`}
+                style={{
+                  fontFamily: '"IM Fell English SC", serif',
+                  boxShadow: region === r
+                    ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
+                    : "0 1px 0 rgba(0, 0, 0, 0.08)",
+                }}
+                aria-pressed={region === r}
+              >
+                {REGION_LABELS[r]}
+              </button>
+            ))}
           </div>
 
-          {/* Saved Inns — sits on the right, top-aligned with the Region row */}
+          {/* Tone selector */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-[#1a1410] mr-2 w-14 text-right">Tone</span>
+            {TONE_LIST.map(t => (
+              <button
+                key={t}
+                onClick={() => { setTone(t); rerollAll(region, t); }}
+                className={`px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase border transition-all duration-150 ${
+                  tone === t
+                    ? "bg-[#6B1F2D] border-[#3d1219] text-[#F3F0E8]"
+                    : "bg-[#1a1410]/[0.04] border-[#1a1410]/20 text-[#1a1410]/70 hover:bg-[#1a1410]/10 hover:border-[#1a1410]/40 hover:text-[#1a1410]"
+                }`}
+                style={{
+                  fontFamily: '"IM Fell English SC", serif',
+                  boxShadow: tone === t
+                    ? "inset 0 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(107, 31, 45, 0.4)"
+                    : "0 1px 0 rgba(0, 0, 0, 0.08)",
+                }}
+                aria-pressed={tone === t}
+              >
+                {TONE_LABELS[t]}
+              </button>
+            ))}
+          </div>
+
+          {/* Primary roll button — applies current Region + Tone */}
           <button
-            onClick={() => setStableOpen(true)}
-            className="justify-self-end flex items-center gap-2 px-3 py-1.5 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors text-[10px] tracking-[0.25em] uppercase"
+            onClick={rerollAll}
+            className="mt-2 px-10 py-4 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
-            <Bookmark size={12} />
-            Saved Inns ({savedInns.length})
+            <Dices size={18} />
+            Roll New Entry
           </button>
         </div>
 
@@ -1676,6 +1663,15 @@ export default function InnGenerator() {
           >
             {isPinned ? <Check size={13} /> : <BookmarkPlus size={13} />}
             {isPinned ? "Saved" : "Save Inn"}
+          </button>
+          <button
+            onClick={() => setStableOpen(true)}
+            className="px-4 py-3 border border-[#1a1410]/25 text-[#1a1410]/80 hover:bg-[#1a1410]/5 hover:border-[#1a1410]/45 transition-colors flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase"
+            style={{ fontFamily: '"IM Fell English SC", serif' }}
+            title="Browse and load saved inns"
+          >
+            <Bookmark size={13} />
+            Load Inn ({savedInns.length})
           </button>
           <button
             onClick={copyEntry}
