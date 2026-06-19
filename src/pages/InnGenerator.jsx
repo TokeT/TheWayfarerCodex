@@ -929,7 +929,7 @@ function SectionHeader({ label, locked, onLock, onReroll }) {
           title="Reroll just this section"
           aria-label="Reroll section"
         >
-          <Dice5 size={17} className="text-[#6B1F2D]" />
+          <Dice5 size={17} className="text-[#6B1F2D] -rotate-12" />
         </button>
       </div>
     </div>
@@ -1394,7 +1394,7 @@ export default function InnGenerator() {
             className="mt-2 px-10 py-4 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-3 text-[13px] tracking-[0.3em] uppercase shadow-md shadow-[#6B1F2D]/30"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
-            <Dice5 size={18} />
+            <Dice5 size={18} className="-rotate-12" />
             Roll New Entry
           </button>
         </div>
@@ -1437,7 +1437,7 @@ export default function InnGenerator() {
                   disabled={locks.name}
                   aria-label="Reroll name"
                 >
-                  <Dice5 size={14} className="text-[#6B1F2D]" />
+                  <Dice5 size={14} className="text-[#6B1F2D] -rotate-12" />
                 </button>
               </div>
             </div>
@@ -1631,7 +1631,7 @@ export default function InnGenerator() {
             className="px-5 py-3 bg-[#6B1F2D] text-[#F3F0E8] hover:bg-[#5a1825] transition-colors flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase"
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
-            <Dice5 size={15} />
+            <Dice5 size={15} className="-rotate-12" />
             New Entry
           </button>
           <button
