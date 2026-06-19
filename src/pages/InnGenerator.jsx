@@ -1301,9 +1301,9 @@ export default function InnGenerator() {
 
         {/* Top bar — title and explainer on the left, Nightcloak Games credit on the right */}
         <div className="flex items-start justify-between gap-6">
-          <div className="max-w-xl text-[#1a1410]/70">
+          <div className="max-w-xl lg:max-w-3xl text-[#1a1410]/70">
             <p
-              className="text-[18px] leading-relaxed italic text-[#1a1410]/65"
+              className="text-[20px] leading-relaxed italic text-[#1a1410]/65"
               style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
             >
               A generator of inns, taverns, and waystations for tabletop adventures. Each roll yields a complete entry — keeper, staff, patrons, menu, rumors, and floor plan. Region and Tone shape the flavor; lock any section to keep it, then roll again for the rest.
