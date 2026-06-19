@@ -1448,25 +1448,6 @@ export default function InnGenerator() {
               </div>
             </div>
 
-            {/* Floor plan */}
-            <div className="mb-10">
-              <SectionHeader
-                label="Plan of the House"
-                locked={locks.floorPlan}
-                onLock={() => toggleLock("floorPlan")}
-                onReroll={() => rerollSection("floorPlan")}
-              />
-              <div className="bg-[#1a1410]/[0.015] border border-[#1a1410]/10 px-3 py-4 md:px-6 md:py-5">
-                <div className="max-w-xl mx-auto">
-                  <FloorPlan variant={inn.floorPlan} innName={inn.name} />
-                </div>
-              </div>
-              <p className="text-[11px] text-[#1a1410]/45 mt-2 italic"
-                 style={{ fontFamily: '"IM Fell English", serif' }}>
-                From the wayfarer's sketchbook.
-              </p>
-            </div>
-
             {/* Two-column body */}
             <div className="grid md:grid-cols-2 gap-x-10 gap-y-8">
 
@@ -1495,6 +1476,23 @@ export default function InnGenerator() {
                 </p>
               </div>
 
+              {/* Floor plan */}
+              <div>
+                <SectionHeader
+                  label="Plan of the House"
+                  locked={locks.floorPlan}
+                  onLock={() => toggleLock("floorPlan")}
+                  onReroll={() => rerollSection("floorPlan")}
+                />
+                <div className="bg-[#1a1410]/[0.015] border border-[#1a1410]/10 px-3 py-4 md:px-4 md:py-4">
+                  <FloorPlan variant={inn.floorPlan} innName={inn.name} />
+                </div>
+                <p className="text-[11px] text-[#1a1410]/45 mt-2 italic"
+                   style={{ fontFamily: '"IM Fell English", serif' }}>
+                  From the wayfarer's sketchbook.
+                </p>
+              </div>
+
               {/* Staff */}
               <div>
                 <SectionHeader
@@ -1513,7 +1511,7 @@ export default function InnGenerator() {
               </div>
 
               {/* Patrons */}
-              <div className="md:col-span-2">
+              <div>
                 <SectionHeader
                   label="In the Common Room Tonight"
                   locked={locks.patrons}
