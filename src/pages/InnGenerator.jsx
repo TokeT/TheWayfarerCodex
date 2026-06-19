@@ -1627,7 +1627,7 @@ export default function InnGenerator() {
             {/* Page footer */}
             <div className="mt-12 pt-4 border-t border-[#1a1410]/15 flex items-center justify-between text-[10px] tracking-[0.25em] uppercase text-[#1a1410]/40">
               <span>Entry · {hashId(inn.name)}</span>
-              <span>{lockedCount > 0 ? `${lockedCount} pinned` : "—"}</span>
+              <span>{lockedCount > 0 ? `${lockedCount} locked` : "—"}</span>
             </div>
           </div>
         </div>
@@ -1648,7 +1648,7 @@ export default function InnGenerator() {
             style={{ fontFamily: '"IM Fell English SC", serif' }}
           >
             {allLocked ? <LockOpen size={13} /> : <Lock size={13} />}
-            {allLocked ? "Unpin all" : "Pin all"}
+            {allLocked ? "Unlock all" : "Lock all"}
           </button>
           <button
             onClick={openSaveDialog}
@@ -1685,7 +1685,7 @@ export default function InnGenerator() {
         </div>
 
         <p className="mt-8 text-center text-[10px] tracking-[0.25em] uppercase text-[#1a1410]/35">
-          Pin a section to keep it · Roll again for the rest
+          Lock a section to keep it · Roll again for the rest
         </p>
 
         {/* Hidden file input for import */}
