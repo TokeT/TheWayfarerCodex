@@ -1406,40 +1406,40 @@ export default function InnGenerator() {
           <div className="relative py-4 md:py-6">
 
             {/* Hero — name */}
-            <div className="flex items-start gap-5 mb-6">
-              <div className="flex-1 min-w-0">
+            <div className="mb-6">
+              <div className="flex items-center justify-between gap-5">
                 <h1
-                  className="text-3xl md:text-5xl leading-tight text-[#1a1410]"
+                  className="text-3xl md:text-5xl leading-tight text-[#1a1410] flex-1 min-w-0"
                   style={{ fontFamily: '"IM Fell English SC", "EB Garamond", serif', fontWeight: 400 }}
                 >
                   {inn.name}
                 </h1>
-                <p
-                  className="text-base md:text-lg leading-relaxed italic text-[#1a1410]/75 mt-2"
-                  style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
-                >
-                  {inn.exterior}
-                </p>
+                <div className="flex gap-1 shrink-0">
+                  <button
+                    onClick={() => toggleLock("name")}
+                    className={`p-1.5 rounded transition-colors ${locks.name ? "bg-[#1a1410]/5" : "hover:bg-[#1a1410]/5"}`}
+                    aria-label="Lock name"
+                  >
+                    {locks.name
+                      ? <Lock size={17} className="text-[#6B1F2D]" />
+                      : <LockOpen size={17} className="text-[#6B1F2D]" />}
+                  </button>
+                  <button
+                    onClick={() => rerollSection("name")}
+                    className="p-1.5 hover:bg-[#1a1410]/5 rounded transition-colors disabled:opacity-30"
+                    disabled={locks.name}
+                    aria-label="Reroll name"
+                  >
+                    <Dice5 size={17} className="text-[#6B1F2D] -rotate-12" />
+                  </button>
+                </div>
               </div>
-              <div className="flex gap-1 shrink-0">
-                <button
-                  onClick={() => toggleLock("name")}
-                  className={`p-1.5 rounded transition-colors ${locks.name ? "bg-[#1a1410]/5" : "hover:bg-[#1a1410]/5"}`}
-                  aria-label="Lock name"
-                >
-                  {locks.name
-                    ? <Lock size={14} className="text-[#6B1F2D]" />
-                    : <LockOpen size={14} className="text-[#6B1F2D]" />}
-                </button>
-                <button
-                  onClick={() => rerollSection("name")}
-                  className="p-1.5 hover:bg-[#1a1410]/5 rounded transition-colors disabled:opacity-30"
-                  disabled={locks.name}
-                  aria-label="Reroll name"
-                >
-                  <Dice5 size={14} className="text-[#6B1F2D] -rotate-12" />
-                </button>
-              </div>
+              <p
+                className="text-base md:text-lg leading-relaxed italic text-[#1a1410]/75 mt-2"
+                style={{ fontFamily: '"IM Fell English", "EB Garamond", serif' }}
+              >
+                {inn.exterior}
+              </p>
             </div>
 
             {/* Two-column body */}
