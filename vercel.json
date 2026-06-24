@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/mercenary-saga/play", "destination": "/mercenary-saga/play.html" },
+    { "source": "/((?!mercenary-saga/play).*)", "destination": "/" }
   ]
 }
