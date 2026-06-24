@@ -350,8 +350,7 @@ export default function MercenarySaga() {
               <a href="/mercenary-saga/play" className="ms-cta">
                 Play in your browser <span className="arrow">&rarr;</span>
               </a>
-              {/* TODO: replace href below with your itch.io URL once you have it */}
-              <a href="#" target="_blank" rel="noopener" className="ms-cta ghost">
+              <a href="https://nightcloak-games.itch.io/mercenary-saga" target="_blank" rel="noopener" className="ms-cta ghost">
                 Find it on itch.io
               </a>
             </div>
