@@ -746,8 +746,8 @@ export default function Home() {
 </article>
 
 
-{/* ============ ASSASSIN ============ */}
-<article className="game-spread flipped" id="assassin">
+{/* ============ MERCENARY SAGA (was: ASSASSIN) ============ */}
+<article className="game-spread flipped" id="mercenary-saga">
   <div className="spread-hero assassin">
     <div className="spread-hero-content">
       <svg className="spread-hero-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -755,9 +755,9 @@ export default function Home() {
         <line x1="22" y1="46" x2="42" y2="46" />
         <line x1="26" y1="50" x2="38" y2="50" />
       </svg>
-      <h2 className="spread-hero-title">The Assassin</h2>
+      <h2 className="spread-hero-title">Mercenary Saga</h2>
       <div className="spread-hero-rule"></div>
-      <p className="spread-hero-subtitle">Solo. One target. One long night.</p>
+      <p className="spread-hero-subtitle">You left with his son. You're going to have to explain that.</p>
     </div>
     <div className="spread-hero-placeholder-label">Cover Art</div>
     <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
@@ -774,17 +774,17 @@ export default function Home() {
       </div>
       <div className="spread-text">
         <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
-        <h3 className="spread-text-title">The Assassin</h3>
-        <p className="spread-text-subtitle">A solo game of one quiet murder &mdash; <em>working title</em></p>
+        <h3 className="spread-text-title">Mercenary Saga</h3>
+        <p className="spread-text-subtitle">A solo browser saga of crews, choices, and long roads</p>
 
         <div className="spread-section-label">The Lore</div>
         <p className="spread-section-body">
-          You have a name on a folded paper, a city you don't know, and an hour before dawn. There is no second chance and no one to ask for help. You will either be inside a window by sunrise or you will not.
+          You worked for the wrong man six years. The night you left, you took his son with you. Ahead is the road, the borderlands, and every choice you can't unmake.
         </p>
 
         <div className="spread-section-label">What You Play</div>
         <p className="spread-section-body">
-          A <em>solo journaling game</em> played across a single sitting. Each turn, a die tells you what changes &mdash; the guard rotates, the wind picks up, a window opens upstairs &mdash; and the pen records what you do about it.
+          A <em>solo browser game</em> told one chapter at a time. Crew, gold, and reputation &mdash; three things to spend, all of them too few. Each location is a choice. Each choice costs.
         </p>
 
         <div className="spread-facts">
@@ -794,21 +794,21 @@ export default function Home() {
           </div>
           <div className="spread-fact">
             <div className="spread-fact-label">Format</div>
-            <div className="spread-fact-value">Print &amp; play</div>
+            <div className="spread-fact-value">Browser</div>
           </div>
           <div className="spread-fact">
-            <div className="spread-fact-label">You'll need</div>
-            <div className="spread-fact-value">Die &amp; pen</div>
+            <div className="spread-fact-label">Chapter</div>
+            <div className="spread-fact-value">I, ongoing</div>
           </div>
           <div className="spread-fact">
             <div className="spread-fact-label">Time</div>
-            <div className="spread-fact-value">One sitting</div>
+            <div className="spread-fact-value">~30 min</div>
           </div>
         </div>
 
         <div className="spread-cta-row">
-          <span className="spread-status">In Development</span>
-          <a href="#" className="spread-cta">Read more <span className="arrow">&rarr;</span></a>
+          <span className="spread-status">Chapter I Now</span>
+          <a href="/mercenary-saga" className="spread-cta">Read more <span className="arrow">&rarr;</span></a>
         </div>
       </div>
     </div>
