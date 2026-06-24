@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import InnGenerator from "./pages/InnGenerator.jsx";
+import MercenarySaga from "./pages/MercenarySaga.jsx";
 
 const NAV_CSS = `
   .global-nav {
@@ -84,6 +85,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tavern-tales" element={<InnGenerator />} />
+        <Route path="/mercenary-saga" element={<MercenarySaga />} />
       </Routes>
     </BrowserRouter>
   );
