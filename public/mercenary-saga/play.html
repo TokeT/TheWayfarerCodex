@@ -1,1 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Mercenary Campaign — Chapter I: The Road to Veldmark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --bg:        #0f0c08;
+    --bg2:       #16120d;
+    --bg3:       #1e1812;
+    --parchment: #F2E8D0;
+    --ink:       #1a1208;
+    --gold:      #C4923A;
+    --gold-dim:  #8a6428;
+    --red:       #8B2020;
+    --green:     #2A5E3A;
+    --purple:    #5A3A7E;
+    --border:    #2e2618;
+    --border2:   #3e3220;
+    --text:      #d4c4a0;
+    --text-dim:  #7a6840;
+    --text-faint:#3e3220;
+    --font-title: 'IM Fell English', Georgia, serif;
+    --font-body:  'Crimson Pro', Georgia, serif;
+    /* Safe area insets for notched phones */
+    --safe-top:    env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left:   env(safe-area-inset-left, 0px);
+    --safe-right:  env(safe-area-inset-right, 0px);
+  }
+
+  html {
+    /* Prevent elastic bounce scroll on iOS */
+    overflow: hidden;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    /* Larger base font on mobile for readability */
+    font-size: clamp(16px, 4.2vw, 18px);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    /* Prevent text size adjustment on orientation change */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Prevent blue tap highlight on all interactive elements */
+  * { -webkit-tap-highlight-color: transparent; }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; min-height: 100vh; min-height: 100dvh; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* ══════════════════════════════════════════════════
+     INTRO SCREEN
+  ══════════════════════════════════════════════════ */
+  #screen-intro {
+    align-items: center; justify-content: center;
+    background: var(--bg);
+    /* Respect notch/home bar */
+    padding: calc(32px + var(--safe-top)) 20px calc(48px + var(--safe-bottom));
+    position: relative;
+    overflow: hidden;
+  }
+
+  #screen-intro::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(196,146,58,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .intro-inner {
+    max-width: 440px; width: 100%;
+    text-align: center;
+    position: relative; z-index: 1;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(18px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  .intro-eyebrow {
+    font-family: var(--font-body);
+    font-size: 10px; letter-spacing: 0.35em;
+    color: var(--gold-dim); text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .intro-chapter {
+    font-family: var(--font-title); font-style: italic;
+    font-size: 13px; color: var(--text-dim); margin-bottom: 6px;
+  }
+
+  .intro-title {
+    font-family: var(--font-title); font-style: italic;
+    font-size: clamp(26px, 7vw, 34px); color: var(--parchment); font-weight: normal;
+    margin-bottom: 28px; line-height: 1.2;
+  }
+
+  .intro-divider {
+    height: 1px; background: var(--border2);
+    width: 60px; margin: 0 auto 32px;
+  }
+
+  .intro-lines { text-align: left; margin-bottom: 36px; }
+
+  .intro-line {
+    font-style: italic; font-size: clamp(15px, 4vw, 17px); line-height: 1.75;
+    color: var(--text); margin-bottom: 10px;
+    transition: opacity 0.7s ease, color 0.7s ease;
+  }
+  .intro-line.dim { opacity: 0.1; color: var(--text-faint); }
+
+  .intro-actions {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 12px; margin-bottom: 36px;
+  }
+
+  /* All tap targets >= 44px tall for mobile */
+  .btn-continue {
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px; padding: 14px 40px;
+    color: var(--text); font-family: var(--font-title);
+    font-size: 15px; cursor: pointer;
+    min-height: 48px;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    letter-spacing: 0.05em;
+    width: 100%; max-width: 280px;
+  }
+  .btn-continue:active { background: rgba(196,146,58,0.08); border-color: var(--gold); }
+
+  .btn-begin {
+    background: var(--gold);
+    border: none; border-radius: 8px;
+    padding: 16px 40px;
+    color: var(--ink); font-family: var(--font-title);
+    font-size: 16px; font-weight: normal; cursor: pointer;
+    letter-spacing: 0.06em;
+    min-height: 52px; width: 100%; max-width: 280px;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 20px rgba(196,146,58,0.3);
+  }
+  .btn-begin:active { transform: scale(0.97); background: #d4a042; }
+
+  .btn-skip {
+    background: none; border: none;
+    color: var(--text-faint); font-family: var(--font-body);
+    font-size: 13px; cursor: pointer; letter-spacing: 0.05em;
+    padding: 10px 20px; min-height: 44px;
+    transition: color 0.2s;
+  }
+  .btn-skip:active { color: var(--text-dim); }
+
+  .intro-starting-stats {
+    display: flex; justify-content: center; align-items: center;
+    gap: 20px; border-top: 1px solid var(--border2); padding-top: 24px;
+  }
+  .intro-stat-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .intro-stat-num { font-family: var(--font-title); font-size: 28px; color: var(--parchment); }
+  .intro-stat-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
+  .intro-stat-dot { color: var(--border2); font-size: 22px; }
+
+  /* ══════════════════════════════════════════════════
+     GAME SCREEN
+  ══════════════════════════════════════════════════ */
+  #screen-game {
+    background: var(--bg);
+    width: 100%; max-width: 500px; margin: 0 auto;
+    padding-bottom: calc(80px + var(--safe-bottom));
+  }
+
+  /* Sticky header with notch support */
+  .game-header {
+    text-align: center;
+    padding: calc(16px + var(--safe-top)) 20px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .game-header-eyebrow {
+    font-size: 9px; letter-spacing: 0.3em;
+    color: var(--text-faint); text-transform: uppercase; margin-bottom: 4px;
+  }
+  .game-header-title {
+    font-family: var(--font-title); font-style: italic;
+    font-size: clamp(15px, 4vw, 18px); color: var(--text); font-weight: normal;
+  }
+
+  /* Stats row — bigger tap targets */
+  .stats-row { display: flex; gap: 8px; padding: 12px 12px 0; }
+
+  .stat-card {
+    flex: 1; background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 6px; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .stat-card.warn { border-color: var(--red); background: #1a0e0e; }
+  .stat-label { font-size: 9px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .stat-value {
+    font-family: var(--font-title); font-size: clamp(32px, 9vw, 42px);
+    font-weight: normal; line-height: 1; margin-bottom: 10px;
+    color: var(--parchment); transition: color 0.3s;
+  }
+  .stat-card.warn .stat-value { color: var(--red); }
+  .stat-btns { display: flex; gap: 6px; justify-content: center; }
+
+  /* Bigger +/- buttons — easier to tap */
+  .stat-btn {
+    width: 40px; height: 40px; border-radius: 8px;
+    border: 1px solid var(--border2); background: var(--bg3);
+    font-size: 20px; cursor: pointer; color: var(--text-dim);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    touch-action: manipulation;
+  }
+  .stat-btn:active { border-color: var(--gold-dim); color: var(--text); background: var(--bg2); }
+
+  /* Reputation card */
+  .rep-card {
+    flex: 1; background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 6px; text-align: center;
+  }
+  .rep-bar {
+    height: 3px; background: var(--border2);
+    border-radius: 2px; margin: 8px 4px 6px; overflow: hidden;
+  }
+  .rep-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s ease; }
+  .rank-label { font-size: 9px; color: var(--gold-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+
+  /* Units */
+  .units-row {
+    display: flex; gap: 8px; padding: 10px 12px 0;
+    flex-wrap: wrap; align-items: center;
+  }
+  .units-label { font-size: 9px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+  .unit-badge {
+    background: var(--green); color: #d4f0da;
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 12px; letter-spacing: 0.05em;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 9px; letter-spacing: 0.22em; color: var(--text-faint);
+    padding: 18px 12px 10px; text-transform: uppercase;
+  }
+
+  /* Location grid — 4 cols, touch-friendly */
+  .loc-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; padding: 0 12px;
+  }
+  .loc-btn {
+    aspect-ratio: 1; border-radius: 10px;
+    border: 1.5px solid; background: var(--bg2);
+    font-family: var(--font-title); font-size: clamp(16px, 4.5vw, 20px);
+    cursor: pointer; color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    /* No hover transform on mobile — use active instead */
+    touch-action: manipulation;
+    transition: background 0.15s;
+  }
+  .loc-btn:active:not(.visited) { background: var(--bg3); transform: scale(0.96); }
+  .loc-btn.visited { background: var(--bg); color: var(--text-faint); border-color: var(--border) !important; }
+
+  /* Action row — full-height tappable */
+  .action-row { display: flex; gap: 8px; padding: 12px 12px 0; }
+  .action-btn {
+    flex: 1; padding: 14px 8px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg2);
+    font-family: var(--font-body); font-size: clamp(13px, 3.5vw, 14px);
+    cursor: pointer; color: var(--text-dim);
+    min-height: 52px; touch-action: manipulation;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .action-btn:active { border-color: var(--gold-dim); color: var(--text); background: var(--bg3); }
+
+  /* Road events button */
+  .road-events-btn {
+    display: block; width: calc(100% - 24px); margin: 10px 12px 0;
+    padding: 16px; border-radius: 10px;
+    border: 1px solid var(--border2); background: var(--bg2);
+    font-family: var(--font-title); font-size: clamp(14px, 3.8vw, 15px);
+    cursor: pointer; color: var(--text); letter-spacing: 0.04em;
+    min-height: 52px; touch-action: manipulation;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .road-events-btn:active { border-color: var(--gold-dim); background: var(--bg3); }
+
+  /* ══════════════════════════════════════════════════
+     OVERLAY & MODALS — bottom-sheet style on mobile
+  ══════════════════════════════════════════════════ */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100;
+    display: flex; align-items: flex-end; justify-content: center;
+    overflow: hidden;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    animation: overlayIn 0.2s ease;
+  }
+  @keyframes overlayIn { from { opacity:0; } to { opacity:1; } }
+
+  /* Modal as bottom sheet */
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 20px 20px 0 0;
+    width: 100%; max-width: 500px;
+    padding: 0;
+    position: relative;
+    /* Takes up to 92% of screen height, scrollable */
+    max-height: 92dvh;
+    max-height: 92vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    animation: sheetUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+    /* Safe area for home bar */
+    padding-bottom: var(--safe-bottom);
+  }
+  @keyframes sheetUp {
+    from { opacity:0.6; transform: translateY(60px); }
+    to   { opacity:1;   transform: translateY(0); }
+  }
+
+  /* Drag handle */
+  .modal::before {
+    content: '';
+    display: block;
+    width: 36px; height: 4px;
+    background: var(--border2);
+    border-radius: 2px;
+    margin: 12px auto 0;
+  }
+
+  /* Actual content padding */
+  .modal-inner {
+    padding: 16px 18px 24px;
+  }
+
+  .close-btn {
+    position: absolute; top: 18px; right: 16px;
+    width: 36px; height: 36px; border-radius: 8px;
+    border: 1px solid var(--border2); background: var(--bg3);
+    font-size: 18px; cursor: pointer; color: var(--text-dim);
+    display: flex; align-items: center; justify-content: center;
+    touch-action: manipulation;
+    transition: color 0.15s, border-color 0.15s;
+    z-index: 2;
+  }
+  .close-btn:active { color: var(--text); border-color: var(--text-faint); }
+
+  .modal-title {
+    font-family: var(--font-title); font-size: clamp(20px, 5.5vw, 24px);
+    color: var(--parchment); margin-bottom: 12px; padding-right: 44px;
+    line-height: 1.2;
+  }
+  .modal-subtitle { font-style: italic; color: var(--text-dim); font-size: 15px; }
+
+  .narration { margin-bottom: 14px; }
+  .nar-para {
+    font-style: italic; line-height: 1.75; margin-bottom: 12px;
+    font-size: clamp(15px, 4vw, 16px); color: var(--text);
+  }
+
+  /* Type badge */
+  .type-badge {
+    display: inline-block; font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 14px; font-family: var(--font-body);
+  }
+  .type-badge.city { background: rgba(139,32,32,0.2); color: #d96060; border: 1px solid rgba(139,32,32,0.3); }
+  .type-badge.event { background: rgba(90,58,126,0.2); color: #a080d0; border: 1px solid rgba(90,58,126,0.3); }
+
+  /* Stat pills */
+  .stat-pills { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .pill {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 12px; color: var(--text-dim); letter-spacing: 0.04em;
+  }
+
+  /* Battle tracker */
+  .battle-tracker {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 16px; margin-bottom: 14px;
+    transition: border-color 0.3s;
+  }
+  .battle-tracker.defeated { border-color: var(--green); }
+  .bt-label { font-size: 9px; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 14px; text-transform: uppercase; }
+  .bt-row { display: flex; justify-content: space-around; }
+  .bt-side { text-align: center; }
+  .bt-side-label { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
+  .bt-num {
+    font-family: var(--font-title); font-size: clamp(44px, 12vw, 52px);
+    color: var(--parchment); line-height: 1; margin-bottom: 14px;
+    transition: color 0.3s;
+  }
+  .bt-num.defeated { color: var(--green); }
+  /* Large battle buttons — easy to tap with thumb */
+  .bt-btn {
+    width: 56px; height: 52px; border-radius: 10px;
+    border: 1px solid var(--border2); background: var(--bg2);
+    font-size: 24px; cursor: pointer; color: var(--text-dim);
+    touch-action: manipulation;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .bt-btn:active { border-color: var(--gold-dim); color: var(--text); background: var(--bg3); }
+  .bt-btn:disabled { opacity: 0.3; }
+
+  .victory-banner {
+    margin-top: 14px; text-align: center;
+    font-size: 13px; color: var(--green); letter-spacing: 0.1em;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+  .battle-hint {
+    font-size: 12px; color: var(--text-faint); font-style: italic;
+    text-align: center; padding: 10px 0 4px;
+  }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+  /* Choice header */
+  .choice-header {
+    font-size: 9px; letter-spacing: 0.2em; color: var(--text-dim);
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+
+  /* Choice buttons — tall, easy to tap */
+  .choice-btn {
+    display: block; width: 100%; text-align: left;
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 16px 18px;
+    font-size: clamp(14px, 3.8vw, 15px); line-height: 1.55; cursor: pointer;
+    font-family: var(--font-body); color: var(--text);
+    margin-bottom: 10px; min-height: 52px;
+    touch-action: manipulation;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .choice-btn:active { border-color: var(--gold-dim); background: var(--bg2); }
+  .choice-btn-label { font-weight: 600; color: var(--parchment); }
+
+  /* Resolved box */
+  .resolved-box {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 18px; margin-bottom: 16px;
+    animation: fadeIn 0.3s ease;
+  }
+  .resolved-title { font-family: var(--font-title); font-size: 17px; color: var(--parchment); margin-bottom: 8px; }
+  .resolved-text { font-size: clamp(14px, 3.8vw, 15px); line-height: 1.65; font-style: italic; color: var(--text); margin-bottom: 10px; }
+  .resolved-tag { font-size: 13px; color: var(--green); letter-spacing: 0.06em; margin-bottom: 16px; font-weight: 600; }
+  .resolved-tag.loss { color: var(--red); }
+
+  /* Done / Continue — full width on mobile */
+  .done-btn {
+    background: var(--gold); color: var(--ink);
+    border: none; border-radius: 10px;
+    padding: 14px 24px; font-size: 15px;
+    cursor: pointer; font-family: var(--font-title);
+    letter-spacing: 0.06em;
+    min-height: 52px; width: 100%;
+    touch-action: manipulation;
+    transition: background 0.15s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .done-btn:active { background: #d4a042; transform: scale(0.99); }
+
+  /* Modal footer */
+  .modal-footer-bar {
+    position: sticky; bottom: 0;
+    background: var(--bg2);
+    border-top: 1px dashed var(--border2);
+    text-align: center; padding: 14px;
+    font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.08em; margin-top: 12px;
+    text-transform: uppercase;
+  }
+
+  /* Road event eyebrow */
+  .re-eyebrow {
+    font-size: 9px; letter-spacing: 0.25em; color: var(--gold-dim);
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  /* Road event choice cards */
+  .re-choice-card {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+  }
+  .re-choice-label { font-weight: 600; font-size: 15px; color: var(--parchment); margin-bottom: 4px; font-family: var(--font-title); }
+  .re-choice-desc { font-size: 14px; line-height: 1.55; color: var(--text); font-style: italic; margin-bottom: 6px; }
+  .re-choice-tag { font-size: 12px; color: var(--green); font-weight: 600; letter-spacing: 0.06em; }
+  .re-choice-tag.loss { color: var(--red); }
+
+  /* Victory screen */
+  #screen-victory {
+    align-items: center; justify-content: center;
+    background: var(--bg);
+    padding: calc(40px + var(--safe-top)) 24px calc(48px + var(--safe-bottom));
+    text-align: center;
+  }
+  .victory-inner { max-width: 400px; animation: fadeUp 0.8s ease both; }
+  .victory-eyebrow { font-size: 10px; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; margin-bottom: 16px; }
+  .victory-title { font-family: var(--font-title); font-style: italic; font-size: clamp(24px, 7vw, 30px); color: var(--parchment); margin-bottom: 10px; }
+  .victory-subtitle { font-size: 15px; color: var(--text-dim); font-style: italic; margin-bottom: 32px; }
+  .victory-divider { height: 1px; background: var(--border2); width: 60px; margin: 0 auto 32px; }
+  .victory-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; }
+  .victory-stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .victory-stat-num { font-family: var(--font-title); font-size: clamp(32px, 9vw, 40px); color: var(--gold); }
+  .victory-stat-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; }
+  .restart-btn {
+    background: transparent; border: 1px solid var(--gold-dim);
+    border-radius: 10px; padding: 16px 40px;
+    color: var(--text); font-family: var(--font-title);
+    font-size: 15px; cursor: pointer; letter-spacing: 0.05em;
+    min-height: 52px; width: 100%; max-width: 280px;
+    touch-action: manipulation;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .restart-btn:active { border-color: var(--gold); color: var(--parchment); background: rgba(196,146,58,0.06); }
+
+  /* Sound toggle — larger for mobile */
+  .sound-toggle {
+    position: fixed; top: calc(14px + var(--safe-top)); right: calc(14px + var(--safe-right));
+    z-index: 200;
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 8px; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 18px;
+    touch-action: manipulation;
+    transition: border-color 0.15s;
+  }
+  .sound-toggle:active { border-color: var(--gold-dim); }
+
+  /* Scrollbar — thinner on mobile */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* Travel cost banner */
+  .travel-cost-banner {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(196,146,58,0.1); border: 1px solid rgba(196,146,58,0.25);
+    border-radius: 8px; padding: 9px 14px; margin-bottom: 14px;
+    font-size: 13px; color: var(--gold); letter-spacing: 0.04em;
+    animation: fadeIn 0.3s ease;
+  }
+  .travel-cost-banner.crew {
+    background: rgba(139,32,32,0.12); border-color: rgba(139,32,32,0.3);
+    color: #d96060;
+  }
+
+  /* Road event roll prompt */
+  .re-roll-prompt {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(196,146,58,0.07); border: 1px solid rgba(196,146,58,0.18);
+    border-radius: 8px; padding: 12px 14px; margin: 14px 0 4px;
+    font-size: 14px; color: var(--gold-dim); font-style: italic;
+    letter-spacing: 0.02em;
+  }
+  .re-dice-icon { font-size: 22px; flex-shrink: 0; }
+
+  /* Merchant camp */
+  .merchant-section { margin-top: 4px; }
+  .merchant-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 16px; margin-bottom: 10px;
+    gap: 12px;
+  }
+  .merchant-info { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .merchant-item-name { font-family: var(--font-title); font-size: 16px; color: var(--parchment); }
+  .merchant-item-desc { font-size: 13px; color: var(--text-dim); font-style: italic; }
+  .merchant-item-cost { font-size: 12px; color: var(--gold); letter-spacing: 0.06em; margin-top: 2px; }
+  .merchant-buy-btn {
+    background: var(--gold); color: var(--ink);
+    border: none; border-radius: 8px;
+    padding: 12px 20px; font-family: var(--font-title);
+    font-size: 14px; cursor: pointer; white-space: nowrap;
+    min-height: 48px; flex-shrink: 0;
+    touch-action: manipulation;
+    transition: background 0.15s, opacity 0.15s;
+    letter-spacing: 0.04em;
+    -webkit-appearance: none; appearance: none;
+  }
+  .merchant-buy-btn:disabled { opacity: 0.35; cursor: not-allowed; background: var(--gold-dim); }
+  .merchant-buy-btn:active:not(:disabled) { background: #d4a042; transform: scale(0.98); }
+  .merchant-tally {
+    text-align: center; font-size: 13px; color: var(--text-dim);
+    font-style: italic; padding: 6px 0 14px; letter-spacing: 0.04em;
+  }
+  .merchant-tally span { color: var(--parchment); font-style: normal; }
+
+  /* ── NUMBER FLASH ANIMATION ── */
+  @keyframes numFlash {
+    0%   { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  .flash { animation: numFlash 0.3s ease; }
+
+  /* Travel cost banner */
+  .travel-cost-banner {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(196,146,58,0.1); border: 1px solid rgba(196,146,58,0.25);
+    border-radius: 8px; padding: 8px 14px; margin-bottom: 14px;
+    font-size: 12px; color: var(--gold); letter-spacing: 0.06em;
+    animation: fadeIn 0.3s ease;
+  }
+  .travel-cost-banner.crew {
+    background: rgba(139,32,32,0.12); border-color: rgba(139,32,32,0.3);
+    color: #d96060;
+  }
+
+  /* Merchant camp */
+  .merchant-section { margin-top: 4px; }
+  .merchant-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+  }
+  .merchant-info { display: flex; flex-direction: column; gap: 3px; }
+  .merchant-item-name { font-family: var(--font-title); font-size: 15px; color: var(--parchment); }
+  .merchant-item-desc { font-size: 12px; color: var(--text-dim); font-style: italic; }
+  .merchant-item-cost { font-size: 11px; color: var(--gold); letter-spacing: 0.06em; margin-top: 2px; }
+  .merchant-buy-btn {
+    background: var(--gold); color: var(--ink);
+    border: none; border-radius: 6px;
+    padding: 9px 18px; font-family: var(--font-title);
+    font-size: 13px; cursor: pointer; white-space: nowrap;
+    transition: background 0.15s, opacity 0.15s;
+    letter-spacing: 0.04em;
+  }
+  .merchant-buy-btn:disabled { opacity: 0.35; cursor: not-allowed; background: var(--gold-dim); }
+  .merchant-buy-btn:not(:disabled):hover { background: #d4a042; }
+  .merchant-tally {
+    text-align: center; font-size: 12px; color: var(--text-dim);
+    font-style: italic; padding: 6px 0 14px; letter-spacing: 0.04em;
+  }
+  .merchant-tally span { color: var(--parchment); font-style: normal; }
+
+  /* ── ROAD EVENT ROLL PROMPT ── */
+  .re-roll-prompt {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(196,146,58,0.07); border: 1px solid rgba(196,146,58,0.18);
+    border-radius: 8px; padding: 10px 14px; margin: 14px 0 4px;
+    font-size: 13px; color: var(--gold-dim); font-style: italic;
+    letter-spacing: 0.03em;
+  }
+  .re-dice-icon { font-size: 20px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- Sound toggle -->
+<button class="sound-toggle" id="sound-toggle" title="Toggle sound">🔔</button>
+
+<!-- ══ INTRO SCREEN ══ -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-inner">
+    <div class="intro-eyebrow">Mercenary Campaign</div>
+    <div class="intro-chapter">Chapter I</div>
+    <div class="intro-title">The Road to Veldmark</div>
+    <div class="intro-divider"></div>
+    <div class="intro-lines" id="intro-lines"></div>
+    <div class="intro-actions" id="intro-actions">
+      <button class="btn-continue" id="btn-continue">Continue</button>
+      <button class="btn-skip" id="btn-skip">Skip intro</button>
+    </div>
+    <div class="intro-starting-stats">
+      <div class="intro-stat-item">
+        <span class="intro-stat-num">8</span>
+        <span class="intro-stat-label">Crew</span>
+      </div>
+      <div class="intro-stat-dot">·</div>
+      <div class="intro-stat-item">
+        <span class="intro-stat-num">16</span>
+        <span class="intro-stat-label">Gold</span>
+      </div>
+      <div class="intro-stat-dot">·</div>
+      <div class="intro-stat-item">
+        <span class="intro-stat-num">0</span>
+        <span class="intro-stat-label">Reputation</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GAME SCREEN ══ -->
+<div id="screen-game" class="screen">
+  <div class="game-header">
+    <div class="game-header-eyebrow">Mercenary Campaign</div>
+    <div class="game-header-title">Chapter I — The Road to Veldmark</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card" id="card-crew">
+      <div class="stat-label">Crew</div>
+      <div class="stat-value" id="val-crew">8</div>
+      <div class="stat-btns">
+        <button class="stat-btn" data-stat="crew" data-d="-1">−</button>
+        <button class="stat-btn" data-stat="crew" data-d="1">+</button>
+      </div>
+    </div>
+    <div class="stat-card" id="card-gold">
+      <div class="stat-label">Gold</div>
+      <div class="stat-value" id="val-gold">16</div>
+      <div class="stat-btns">
+        <button class="stat-btn" data-stat="gold" data-d="-1">−</button>
+        <button class="stat-btn" data-stat="gold" data-d="1">+</button>
+      </div>
+    </div>
+    <div class="rep-card">
+      <div class="stat-label">Reputation</div>
+      <div class="stat-value" id="val-rep">0</div>
+      <div class="rep-bar"><div class="rep-fill" id="rep-fill" style="width:0%"></div></div>
+      <div class="rank-label" id="rank-label">Fugitives</div>
+      <div class="stat-btns">
+        <button class="stat-btn" data-stat="rep" data-d="-1">−</button>
+        <button class="stat-btn" data-stat="rep" data-d="1">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="units-row" id="units-row" style="display:none;">
+    <span class="units-label">Units:</span>
+    <div id="units-badges"></div>
+  </div>
+
+  <div class="section-label">Locations</div>
+  <div class="loc-grid" id="loc-grid"></div>
+
+
+  <button class="road-events-btn" id="btn-road-events">⚔ Road Events</button>
+</div>
+
+<!-- ══ VICTORY SCREEN ══ -->
+<div id="screen-victory" class="screen">
+  <div class="victory-inner">
+    <div class="victory-eyebrow">Chapter Complete</div>
+    <div class="victory-title">The Reckoner Falls</div>
+    <div class="victory-subtitle">The road to Veldmark ends here.</div>
+    <div class="victory-divider"></div>
+    <div class="victory-stats">
+      <div class="victory-stat-item">
+        <span class="victory-stat-num" id="v-crew">0</span>
+        <span class="victory-stat-label">Crew Remaining</span>
+      </div>
+      <div class="victory-stat-item">
+        <span class="victory-stat-num" id="v-gold">0</span>
+        <span class="victory-stat-label">Gold Held</span>
+      </div>
+      <div class="victory-stat-item">
+        <span class="victory-stat-num" id="v-rep">0</span>
+        <span class="victory-stat-label">Reputation</span>
+      </div>
+    </div>
+    <button class="restart-btn" id="btn-restart">Play Again</button>
+  </div>
+</div>
+
+<!-- ══ MODAL CONTAINER ══ -->
+<div id="modal-overlay" class="overlay" style="display:none;" onclick="closeModal(event)">
+  <div id="modal-box" class="modal" onclick="event.stopPropagation()">
+    <div class="modal-inner">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── AUDIO ENGINE ───────────────────────────────────────────────────────────
+let audioCtx = null;
+let soundEnabled = true;
+
+function getAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(freq, type, duration, gainVal, detune = 0) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudio();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type; osc.frequency.value = freq; osc.detune.value = detune;
+    gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.start(); osc.stop(ctx.currentTime + duration);
+  } catch(e) {}
+}
+
+function sfxClick() {
+  playTone(220, 'sine', 0.08, 0.15);
+}
+function sfxChoose() {
+  playTone(330, 'triangle', 0.15, 0.12);
+  setTimeout(() => playTone(440, 'triangle', 0.2, 0.08), 60);
+}
+function sfxGoldGain() {
+  [523, 659, 784].forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.18, 0.1), i * 50));
+}
+function sfxGoldLoss() {
+  playTone(200, 'sawtooth', 0.15, 0.08);
+  setTimeout(() => playTone(160, 'sawtooth', 0.2, 0.06), 80);
+}
+function sfxCrewGain() {
+  playTone(440, 'square', 0.08, 0.06);
+  setTimeout(() => playTone(550, 'square', 0.12, 0.05), 60);
+}
+function sfxCrewLoss() {
+  playTone(180, 'sawtooth', 0.15, 0.07);
+}
+function sfxRepGain() {
+  [660, 880, 1100].forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.25, 0.07), i * 60));
+}
+function sfxOpenModal() {
+  playTone(300, 'sine', 0.12, 0.08);
+}
+function sfxVictory() {
+  [523,659,784,1047].forEach((f,i) => setTimeout(() => playTone(f,'triangle',0.4,0.09), i*80));
+}
+
+document.getElementById('sound-toggle').addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  document.getElementById('sound-toggle').textContent = soundEnabled ? '🔔' : '🔕';
+  sfxClick();
+});
+
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const ROAD_EVENTS = [
+  { id:"RE1", title:"Outriders", dice:false,
+    narration:"Two riders on the ridge. They clock your banner and don't come down. Valdris's men, or men who work for people who work for him. Either way — you've been seen.",
+    choices:[
+      {label:"Push the pace",description:"You move faster. Costs you.",effect:{gold:-2},tag:"Lose 2 gold."},
+      {label:"Send scouts",description:"They don't find much. But they find something.",effect:{gold:1},tag:"Gain 1 gold."},
+      {label:"Ignore them",description:"You keep your pace. They keep their distance. For now.",effect:{},tag:"No effect."},
+    ]},
+  { id:"RE2", title:"Ambush", dice:true,
+    narration:"The road narrows. You know what that means. They come out of the treeline — not many, but positioned well. Someone told them you were coming.",
+    choices:[
+      {label:"Fight through (1–3)",description:"You pay for every step of that road. But you clear it.",effect:{crew:-1},tag:"Lose 1 crew."},
+      {label:"Edric flanks them (4–6)",description:"He's fast. They weren't expecting that.",effect:{reputation:1},tag:"+1 reputation."},
+    ]},
+  { id:"RE3", title:"A Refugee Column", dice:false,
+    narration:"They're heading the wrong way — back toward the borderlands. A woman with children, three older men, a cart with one wheel. They ask if the road ahead is clear.",
+    choices:[
+      {label:"Tell them the truth",description:"You tell them what you know. It's not good news. They thank you anyway.",effect:{reputation:1},tag:"+1 reputation."},
+      {label:"Offer an escort",description:"It costs time. Costs you.",effect:{gold:-1,reputation:1},tag:"Lose 1 gold. +1 reputation."},
+      {label:"Keep moving",description:"You've got your own problems. They understand. They have to.",effect:{},tag:"No effect."},
+    ]},
+  { id:"RE4", title:"Abandoned Wagon", dice:true,
+    narration:"Sits in the middle of the road. One wheel broken, one horse gone. The cargo is still there — covered in oilcloth, rope still tied.",
+    choices:[
+      {label:"Cargo is valuable (1–4)",description:"You don't know who left it. You know what it's worth.",effect:{gold:3},tag:"Gain 3 gold."},
+      {label:"Cargo is worthless (5–6)",description:"Someone already got here first. You leave it.",effect:{},tag:"No effect."},
+    ]},
+  { id:"RE5", title:"Deserters", dice:false,
+    narration:"Four men in garrison colours, walking the wrong direction with the look of people who've made a decision and are still waiting to feel good about it.",
+    choices:[
+      {label:"Recruit them",description:"They need somewhere to be. So do you.",effect:{crew:2,gold:-2},tag:"Gain 2 crew. Pay 2 gold."},
+      {label:"Let them pass",description:"You've been there. You don't say that.",effect:{},tag:"No effect."},
+      {label:"Take their equipment",description:"They left their post. Their gear didn't.",effect:{gold:2},tag:"Gain 2 gold."},
+    ]},
+  { id:"RE6", title:"The Crossroads Marker", dice:true,
+    narration:"Someone has carved names into the stone. Recent cuts, still pale. You recognise one of them. Edric sees it too. He doesn't say anything.",
+    choices:[
+      {label:"Nothing stirs (1–3)",description:"There's nothing to do here. You keep walking.",effect:{},tag:"No effect."},
+      {label:"Something moves you (4–6)",description:"You add something. You don't know why.",effect:{reputation:1},tag:"+1 reputation."},
+    ]},
+  { id:"RE7", title:"Toll Bridge", dice:false,
+    narration:"Three men with spears and a rope across the road. They're not soldiers. They're opportunists with a good position and no better options.",
+    choices:[
+      {label:"Pay the toll",description:"Two gold. Not worth the blood.",effect:{gold:-2},tag:"Lose 2 gold."},
+      {label:"Remove the rope",description:"They make a calculation. They step aside.",effect:{crew:-1},tag:"Lose 1 crew."},
+      {label:"Offer them work",description:"They were going to end up somewhere.",effect:{crew:1,gold:-1},tag:"Gain 1 crew. Lose 1 gold."},
+    ]},
+  { id:"RE8", title:"Old War Camp", dice:true,
+    narration:"Half-collapsed, overgrown. The Iron Wolves camped here two seasons back. You can tell by the burn marks and what they left behind.",
+    choices:[
+      {label:"Find supplies (1–4)",description:"You find what they left. Not much, but something.",effect:{gold:2},tag:"Gain 2 gold."},
+      {label:"Find shelter (5–6)",description:"A known position. Some rest. Your crew needs it.",effect:{crew:1},tag:"Recover 1 crew."},
+    ]},
+];
+
+const LOCATIONS = [
+  {id:1,name:"Grey Hollow",subtitle:"The Plague Town",type:"event",
+   narration:["You smell it before you see it.","The gates are open. The hinges have rusted in place. The garrison colours still hang above the wall. Untaken.","The streets aren't empty. People move through them slowly, carefully — the way you move when every step costs something. A woman watches you from a doorway. She doesn't call out. She doesn't move.","There's value here. Left behind in a hurry. You know where to look. You also know what lingers.","Roll 1d6. On 4+, lose 1 crew."],
+   choices:[
+     {label:"Plunder",description:"You move quickly. Efficiently. You don't look too closely at anything that doesn't matter.",effect:{gold:6},tag:"Gain 6 gold."},
+     {label:"Leave immediately",description:"You've made this calculation before. You make it again. You turn away before anything has time to follow you.",effect:{reputation:1},tag:"+1 reputation."},
+   ]},
+  {id:2,name:"Mugler's Town",subtitle:"The Smuggler's Den",type:"city",armor:2,hp:4,attack:1,
+   narration:["Officially, this is a waystation.","The ledger in the lockbox under the inn floor says otherwise. Half the region's goods pass through here on their way somewhere they shouldn't be. The garrison knows. They're paid to know.","They've already taken your measure. A man on the roof signals. Another disappears through a back door. No panic. Just movement.","Edric watches the street. \"My father used this place,\" he says quietly. \"We came through when I was twelve.\" A pause. \"I remember the smell.\""],
+   choices:[
+     {label:"Plunder",description:"The fighting is quick and ugly. They were ready — just not ready enough.",effect:{gold:8},tag:"Gain 8 gold."},
+     {label:"Annex",description:"You raise your banner at the gate. They hate it. They comply. A man steps forward. \"I open walls,\" he says.",effect:{unit:"Engineer"},tag:"+1 Engineer unit."},
+   ]},
+  {id:3,name:"Ashfen",subtitle:"The Desperate Town",type:"city",armor:1,hp:2,attack:1,
+   narration:["Ashfen was a market town once. The market is gone. The merchants left two seasons ago when the southern road became what it became.","What's left are the ones who couldn't leave. The garrison is three men and a dog. The dog is the most reliable of them.","They've known you were coming for days. They've been arguing about it ever since."],
+   choices:[
+     {label:"Plunder",description:"The fighting is brief. After, the townsfolk don't run. They line up. Men with nothing left to lose make useful soldiers.",effect:{crew:4},tag:"Gain 4 crew."},
+     {label:"Pass peacefully",description:"You could take this place without effort. You don't. Maybe it's the dog.",effect:{reputation:1},tag:"+1 reputation."},
+   ]},
+  {id:4,name:"The Bell Tower",subtitle:"Ember and Ash",type:"event",
+   narration:["Still smouldering.","The useful things were taken first. Then everything else was burned — stables, stores, the garrison post. Methodical. This is Valdris's work.","The bell tower still stands. Everything else is ash and collapsed timber and silence.","The bell is ringing. Slow. Steady. No wind. No hands. Your crew won't go near it.","Roll 1d6."],
+   choices:[
+     {label:"The bell stops (1–2)",description:"Mid-toll. The silence is worse.",effect:{crew:-1},tag:"Lose 1 crew."},
+     {label:"Search while it rings (3–4)",description:"People drop things when they run. You find what they left behind.",effect:{gold:6},tag:"Gain 6 gold."},
+     {label:"Find survivors (5–6)",description:"A cellar door. Survivors. One of them watches your banner and understands.",effect:{gold:6,crew:2},tag:"Gain 6 gold + 2 crew."},
+   ]},
+  {id:5,name:"The Broken Monastery",subtitle:"The Brothers of Nothing",type:"event",
+   narration:["The monastery comes into view in pieces. The roof has collapsed. The fields are stripped bare. The Iron Wolves were here.","A monk meets you at the gate. Not old — just finished with worrying. Behind him, the remaining brothers watch in silence.","\"We have been discussing,\" he says, \"what comes next.\" He says nothing more."],
+   choices:[
+     {label:"Offer them a place",description:"You don't explain much. The monk does it for you. Several step forward. Several don't.",effect:{crew:2,gold:-4},tag:"Gain 2 crew. Pay 4 gold."},
+     {label:"Move on",description:"The monk watches you go, expectations lowered and clarified.",effect:{},tag:"No effect."},
+   ]},
+  {id:6,name:"Ironbridge",subtitle:"The Recruitment Hub",type:"city",armor:2,hp:6,attack:2,
+   narration:["A city built on selling soldiers. Some behind those walls have worked for companies like yours. Some may have worked for you.","The garrison doesn't panic. They count your numbers. Then they prepare. Professionals. So are you. A waste, all of it."],
+   choices:[
+     {label:"Plunder",description:"The fighting is even. Decided by inches. When it's over, no one celebrates.",effect:{gold:15},tag:"Roll 1d6 × 2. Gain 10–20 gold."},
+     {label:"Annex",description:"Your banner rises over the bridge. People notice.",effect:{crew:1},tag:"+1 crew at each new location for the rest of the map."},
+   ]},
+  {id:7,name:"The Old Battlefield",subtitle:"What You Did Together",type:"event",
+   narration:["You've been here before. Both of you.","The markers are still there. More than you remember. Fewer than there should be.","Edric stops. He's looking at one place near the treeline. You know it. You were there too."],
+   choices:[
+     {label:"Keep moving",description:"You've seen enough.",effect:{},tag:"No effect."},
+     {label:"Make camp",description:"Your crew searches the field.",effect:{gold:2},tag:"Gain 2 gold."},
+     {label:"Let him stand",description:"You wait. When he returns, something has settled.",effect:{reputation:1},tag:"+1 reputation. Edric's ability triggers +1 this map."},
+   ]},
+  {id:8,name:"Mountain Pass",subtitle:"The Old Garrison",type:"city",armor:2,hp:6,attack:1,
+   narration:["Layers of fortification, built and taken and rebuilt. The current owners are mercenaries. Like you.","They study your numbers. Make the calculation. Below the gate, a man eats beside a piece of equipment, watching. Waiting."],
+   choices:[
+     {label:"Plunder",description:"No hatred. Just work. When it's done, survivors consider their options.",effect:{gold:8},tag:"Gain 8 gold."},
+     {label:"Annex",description:"You take the pass. Traffic answers to you now.",effect:{gold:2},tag:"Gain 2 gold now + 2 gold at each new location."},
+   ]},
+  {id:9,name:"Still Water",subtitle:"The Dying Tree",type:"event",
+   narration:["You smell it before you see it. Not rot. Something older.","The field hasn't withered. It has stopped. The tree is split black down the middle. Only the tree.","She sits beneath it. A physician. Calm. In front of her: folded belongings. Recently packed. She looks up.","\"I wondered when someone would come.\""],
+   choices:[
+     {label:"Take her with you",description:"She stands without hesitation.",effect:{unit:"Medic",gold:-3},tag:"Gain Medic. Pay 3 gold."},
+     {label:"Leave her",description:"She watches you go. You think about that.",effect:{},tag:"No effect."},
+   ]},
+  {id:10,name:"Cinder Wall",subtitle:"The Holdout",type:"city",armor:2,hp:5,attack:1,
+   narration:["The town that said no. They held eleven days against the Iron Wolves. The walls show it.","They watch you with suspicion. You are not what they think. Convincing them is another matter."],
+   choices:[
+     {label:"Plunder",description:"They fight harder than they should. You pay for this one.",effect:{gold:10},tag:"Gain 10 gold."},
+     {label:"Annex",description:"You promise to deal with the Iron Wolves. You mean it. Or you don't. They believe you.",effect:{crew:2,reputation:1},tag:"Gain 2 crew + 1 reputation."},
+   ]},
+  {id:11,name:"Amberveil",subtitle:"The City of Coin",type:"city",armor:3,hp:6,attack:1,
+   narration:["A city that got everything it wanted. The streets are clean. The buildings are expensive and without taste. The walls are strong enough. The soldiers are adequate. Profit came first. It usually does.","The council has been moving gold. Rumour. Which means it's early."],
+   choices:[
+     {label:"Ransack",description:"The vaults are where they should be.",effect:{gold:15},tag:"Gain 15 gold."},
+     {label:"Annex",description:"You take the roads. They pay you now.",effect:{gold:1},tag:"Gain 1–2 gold at each new location. Carries into Map 2."},
+   ]},
+  {id:12,name:"The Merchant Camp",subtitle:"The Last Waystation",type:"event",
+   narration:["The camp sprawls at the crossroads — canvas, rope and firelight. These are the people who follow wars, not fight them. Sutlers, surgeons, blacksmiths, men between contracts.",
+     "They know who you are. Word travels faster than soldiers. A few look at your banner and nod. Others start packing.",
+     "Edric moves through the stalls without you. He comes back with names."],
+   merchant: true,
+   choices:[]},
+  {id:13,name:"The Reckoner Watchtower",subtitle:"The Return",type:"city",armor:3,hp:6,attack:2,final:true,
+   narration:["You know this place. You lived here once.","They recognise your banner immediately. Of course they do. No negotiation. No hesitation."],
+   choices:[
+     {label:"Take it — and burn it",description:"You burn it. Carefully. Deliberately. The way Valdris would understand. Before you leave, you find something. A letter. A portrait. Something kept on purpose.",effect:{reputation:3},tag:"Victory. Chapter complete.",final:true},
+   ]},
+];
+
+const RANK_THRESHOLDS = [
+  {min:0,label:"Fugitives"},
+  {min:3,label:"Rabble"},
+  {min:6,label:"Sellswords"},
+  {min:10,label:"Free Company"},
+  {min:15,label:"Iron Company"},
+  {min:20,label:"Legendary"},
+];
+
+const TYPE_COLOR = {city:"#8B2020", event:"#5A3A7E"};
+
+function getRank(rep) {
+  let rank = RANK_THRESHOLDS[0];
+  for (const r of RANK_THRESHOLDS) { if (rep >= r.min) rank = r; }
+  return rank;
+}
+function getNextThreshold(rep) {
+  for (const r of RANK_THRESHOLDS) { if (rep < r.min) return r.min; }
+  return 20;
+}
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+
+let state = {
+  crew: 8, gold: 16, rep: 0,
+  visited: {},
+  units: [],
+};
+
+function applyEffect(effect) {
+  const prev = { crew: state.crew, gold: state.gold, rep: state.rep };
+  if (effect.gold)       state.gold = Math.max(0, state.gold + effect.gold);
+  if (effect.crew)       state.crew = Math.max(0, state.crew + effect.crew);
+  if (effect.reputation) state.rep  = Math.max(0, state.rep + effect.reputation);
+  if (effect.unit && !state.units.includes(effect.unit)) state.units.push(effect.unit);
+
+  // sounds
+  if (effect.gold > 0) sfxGoldGain();
+  else if (effect.gold < 0) sfxGoldLoss();
+  if (effect.crew > 0) sfxCrewGain();
+  else if (effect.crew < 0) sfxCrewLoss();
+  if (effect.reputation > 0) sfxRepGain();
+
+  updateUI();
+}
+
+function flashEl(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('flash');
+  void el.offsetWidth;
+  el.classList.add('flash');
+  el.addEventListener('animationend', () => el.classList.remove('flash'), {once:true});
+}
+
+function updateUI() {
+  document.getElementById('val-crew').textContent = state.crew;
+  document.getElementById('val-gold').textContent = state.gold;
+  document.getElementById('val-rep').textContent  = state.rep;
+
+  const crewCard = document.getElementById('card-crew');
+  const goldCard = document.getElementById('card-gold');
+  crewCard.classList.toggle('warn', state.crew <= 3);
+  goldCard.classList.toggle('warn', state.gold === 0);
+
+  const rank = getRank(state.rep);
+  const next = getNextThreshold(state.rep);
+  const pct = Math.min(100, ((state.rep - rank.min) / Math.max(1, next - rank.min)) * 100);
+  document.getElementById('rep-fill').style.width = pct + '%';
+  document.getElementById('rank-label').textContent = rank.label;
+
+  // units
+  const unitsRow = document.getElementById('units-row');
+  const unitsBadges = document.getElementById('units-badges');
+  if (state.units.length > 0) {
+    unitsRow.style.display = 'flex';
+    unitsBadges.innerHTML = state.units.map(u => `<span class="unit-badge">${u}</span>`).join('');
+  } else {
+    unitsRow.style.display = 'none';
+  }
+
+  // location buttons
+  document.querySelectorAll('.loc-btn').forEach(btn => {
+    const id = parseInt(btn.dataset.id);
+    const loc = LOCATIONS.find(l => l.id === id);
+    btn.classList.toggle('visited', !!state.visited[id]);
+    btn.style.borderColor = state.visited[id] ? 'var(--border)' : (TYPE_COLOR[loc.type] || 'var(--border2)');
+  });
+}
+
+// ─── INTRO ──────────────────────────────────────────────────────────────────
+
+const INTRO_LINES = [
+  "The camp is three hours behind you.",
+  "You stopped counting when the fires disappeared below the treeline.",
+  "Edric walks just behind your shoulder — seventeen, capable, and the son of the man who will come looking for you.",
+  "Valdris will know by morning.",
+  "You worked for him six years. You know what he looks like when he's been betrayed. You've been on the other side of it.",
+  "You know what comes next.",
+  "Ahead, the road splits.",
+  "The borderlands begin.",
+  "Whatever you're going to build, it starts here — in the dark, with other people's trust at your back.",
+  "Time to find out what you're worth.",
+];
+
+let introPhase = 0;
+
+function renderIntro() {
+  const container = document.getElementById('intro-lines');
+  container.innerHTML = INTRO_LINES.map((line, i) =>
+    `<p class="intro-line${i > introPhase ? ' dim' : ''}">${line}</p>`
+  ).join('');
+
+  const actions = document.getElementById('intro-actions');
+  if (introPhase >= INTRO_LINES.length - 1) {
+    actions.innerHTML = `<button class="btn-begin" id="btn-begin">Begin the Campaign →</button>`;
+    document.getElementById('btn-begin').addEventListener('click', startGame);
+  } else {
+    actions.innerHTML = `
+      <button class="btn-continue" id="btn-continue">Continue</button>
+      <button class="btn-skip" id="btn-skip">Skip intro</button>`;
+    document.getElementById('btn-continue').addEventListener('click', advanceIntro);
+    document.getElementById('btn-skip').addEventListener('click', skipIntro);
+  }
+}
+
+function advanceIntro() {
+  sfxClick();
+  introPhase = Math.min(introPhase + 1, INTRO_LINES.length - 1);
+  renderIntro();
+}
+function skipIntro() {
+  sfxClick();
+  introPhase = INTRO_LINES.length - 1;
+  renderIntro();
+}
+
+renderIntro();
+
+document.getElementById('btn-continue').addEventListener('click', advanceIntro);
+document.getElementById('btn-skip').addEventListener('click', skipIntro);
+
+function startGame() {
+  sfxClick();
+  document.getElementById('screen-intro').classList.remove('active');
+  document.getElementById('screen-game').classList.add('active');
+  buildLocGrid();
+  updateUI();
+}
+
+// ─── LOCATION GRID ──────────────────────────────────────────────────────────
+
+function buildLocGrid() {
+  const grid = document.getElementById('loc-grid');
+  grid.innerHTML = LOCATIONS.map(loc => `
+    <button class="loc-btn" data-id="${loc.id}" style="border-color:${TYPE_COLOR[loc.type]||'var(--border2)'}">
+      <span>${loc.id}</span>
+    </button>
+  `).join('');
+  grid.querySelectorAll('.loc-btn').forEach(btn => {
+    btn.addEventListener('click', () => openLocationModal(parseInt(btn.dataset.id)));
+  });
+}
+
+// ─── STAT BUTTONS ────────────────────────────────────────────────────────────
+
+document.querySelectorAll('.stat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    sfxClick();
+    const stat = btn.dataset.stat;
+    const d = parseInt(btn.dataset.d);
+    if (stat === 'crew') { state.crew = Math.max(0, state.crew + d); flashEl('val-crew'); }
+    if (stat === 'gold') { state.gold = Math.max(0, state.gold + d); flashEl('val-gold'); }
+    if (stat === 'rep')  { state.rep  = Math.max(0, state.rep  + d); flashEl('val-rep'); }
+    updateUI();
+  });
+});
+
+
+
+// ─── MODAL ──────────────────────────────────────────────────────────────────
+
+function openModal(html) {
+  sfxOpenModal();
+  document.getElementById('modal-content').innerHTML = html;
+  document.getElementById('modal-overlay').style.display = 'flex';
+  const mb = document.getElementById('modal-box'); mb.scrollTop = 0;
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal-overlay')) return;
+  sfxClick();
+  document.getElementById('modal-overlay').style.display = 'none';
+  document.getElementById('modal-content').innerHTML = '';
+  updateUI();
+}
+
+// expose for onclick
+window.closeModal = function(e) {
+  sfxClick();
+  document.getElementById('modal-overlay').style.display = 'none';
+  document.getElementById('modal-content').innerHTML = '';
+  updateUI();
+};
+
+// ─── LOCATION MODAL ─────────────────────────────────────────────────────────
+
+let currentLoc = null;
+let battleHP = 0;
+let battleCrewLocal = 0;
+let locChoiceMade = null;
+
+let travelCostMsg = null;
+
+function openLocationModal(id) {
+  currentLoc = LOCATIONS.find(l => l.id === id);
+  if (!currentLoc) return;
+  battleHP = currentLoc.hp ?? 0;
+  locChoiceMade = null;
+  travelCostMsg = null;
+
+  // Travel cost: 2 gold only for unvisited locations
+  if (!state.visited[id]) {
+    if (state.gold >= 2) {
+      state.gold -= 2;
+      sfxGoldLoss();
+      travelCostMsg = { type: 'gold', text: '−2 gold paid for travel' };
+    } else {
+      // Not enough gold — deduct crew instead
+      const goldSpent = state.gold;
+      state.gold = 0;
+      state.crew = Math.max(0, state.crew - 1);
+      sfxCrewLoss();
+      travelCostMsg = {
+        type: 'crew',
+        text: goldSpent > 0
+          ? `−${goldSpent} gold + 1 crew lost to reach this place`
+          : '−1 crew lost — the road demanded blood'
+      };
+    }
+    updateUI();
+    flashEl('val-gold');
+  }
+
+  battleCrewLocal = state.crew;
+  state._merchantHired = 0;
+  if (currentLoc.merchant) {
+    renderMerchantModal(currentLoc);
+  } else {
+    renderLocationModal();
+  }
+}
+
+function renderMerchantModal(loc) {
+  const canAfford = state.gold >= 2;
+  const hired = state._merchantHired || 0;
+
+  const html = `
+    <div class="modal-title">${loc.name} <span class="modal-subtitle">— ${loc.subtitle}</span></div>
+    <span class="type-badge event">◆ Event</span>
+    ${travelCostMsg ? `<div class="travel-cost-banner">🪙 ${travelCostMsg.text}</div>` : ''}
+    <div class="narration">${loc.narration.map(p => `<p class="nar-para">${p}</p>`).join('')}</div>
+    <div class="divider"></div>
+    <div class="choice-header">Hire from the camp</div>
+    <div class="merchant-section">
+      <div class="merchant-row">
+        <div class="merchant-info">
+          <div class="merchant-item-name">Recruit Crew</div>
+          <div class="merchant-item-desc">A sellsword between contracts. You know the type.</div>
+          <div class="merchant-item-cost">2 gold → +1 crew</div>
+        </div>
+        <button class="merchant-buy-btn" id="merchant-hire-btn" ${canAfford ? '' : 'disabled'}>Hire</button>
+      </div>
+    </div>
+    <div class="merchant-tally" id="merchant-tally">
+      ${hired > 0 ? `Hired <span>${hired} crew</span> this visit · Gold remaining: <span>${state.gold}</span>` : `Gold: <span>${state.gold}</span>`}
+    </div>
+    <button class="done-btn" onclick="window.closeModal()">Leave camp →</button>
+    <div class="modal-footer-bar">× Road Events</div>
+  `;
+
+  openModal(html);
+
+  document.getElementById('merchant-hire-btn').addEventListener('click', () => {
+    if (state.gold >= 2) {
+      state.gold -= 2;
+      state.crew += 1;
+      state._merchantHired = (state._merchantHired || 0) + 1;
+      sfxCrewGain();
+      sfxGoldLoss();
+      updateUI();
+      flashEl('val-crew');
+      flashEl('val-gold');
+      renderMerchantModal(loc);
+    }
+  });
+}
+
+function renderLocationModal() {
+  const loc = currentLoc;
+  const isCombat = !!loc.armor;
+  const cityDefeated = isCombat && battleHP === 0;
+  const showChoices = !isCombat || cityDefeated;
+
+  const typeBadge = loc.type !== 'village'
+    ? `<span class="type-badge ${loc.type}">${loc.type === 'city' ? '⚔ City' : '◆ Event'}</span>`
+    : '';
+
+  const narrationHTML = loc.narration.map(p => `<p class="nar-para">${p}</p>`).join('');
+
+  const combatHTML = isCombat ? `
+    <div class="stat-pills">
+      <span class="pill">Armor ${loc.armor}</span>
+      <span class="pill">HP ${loc.hp}</span>
+      <span class="pill">Attack ${loc.attack}</span>
+    </div>
+    <div class="battle-tracker${cityDefeated ? ' defeated' : ''}" id="battle-tracker">
+      <div class="bt-label">Battle Tracker</div>
+      <div class="bt-row">
+        <div class="bt-side">
+          <div class="bt-side-label">City HP</div>
+          <div class="bt-num${cityDefeated ? ' defeated' : ''}" id="bt-hp">${battleHP}</div>
+          <button class="bt-btn" id="bt-hp-dec" ${cityDefeated ? 'disabled' : ''}>−</button>
+        </div>
+        <div class="bt-side">
+          <div class="bt-side-label">Your Crew</div>
+          <div class="bt-num" id="bt-crew">${battleCrewLocal}</div>
+          <button class="bt-btn" id="bt-crew-dec">−</button>
+        </div>
+      </div>
+      ${cityDefeated ? '<div class="victory-banner">⚔ City taken — choose what comes next</div>' : ''}
+    </div>
+    ${!cityDefeated ? '<div class="battle-hint">Reduce City HP to 0 to unlock your options.</div>' : ''}
+  ` : '';
+
+  let choicesHTML = '';
+  if (showChoices) {
+    if (locChoiceMade) {
+      const isPositive = locChoiceMade.tag && (locChoiceMade.tag.startsWith('Gain') || locChoiceMade.tag.startsWith('+'));
+      choicesHTML = `
+        <div class="resolved-box">
+          <div class="resolved-title">${locChoiceMade.label}</div>
+          <p class="resolved-text">${locChoiceMade.description}</p>
+          <div class="resolved-tag ${isPositive ? '' : 'loss'}">${locChoiceMade.tag}</div>
+          <button class="done-btn" onclick="window.closeModal()">Continue →</button>
+        </div>`;
+    } else {
+      const btns = loc.choices.map((c, i) =>
+        `<button class="choice-btn" data-ci="${i}"><span class="choice-btn-label">${c.label}</span> — ${c.description}</button>`
+      ).join('');
+      choicesHTML = `
+        <div class="divider"></div>
+        <div class="choice-header">What do you do?</div>
+        ${btns}`;
+    }
+  }
+
+  const travelBanner = travelCostMsg
+    ? `<div class="travel-cost-banner${travelCostMsg.type === 'crew' ? ' crew' : ''}">
+        ${travelCostMsg.type === 'crew' ? '☠' : '🪙'} ${travelCostMsg.text}
+       </div>`
+    : '';
+
+  const html = `
+    <div class="modal-title">${loc.name} <span class="modal-subtitle">— ${loc.subtitle}</span></div>
+    ${typeBadge}
+    ${travelBanner}
+    <div class="narration">${narrationHTML}</div>
+    ${combatHTML}
+    ${choicesHTML}
+    <div class="modal-footer-bar">× Road Events</div>
+  `;
+
+  openModal(html);
+
+  // attach battle buttons
+  if (isCombat && !cityDefeated) {
+    document.getElementById('bt-hp-dec').addEventListener('click', () => {
+      if (battleHP > 0) {
+        battleHP--;
+        sfxGoldLoss();
+        renderLocationModal();
+      }
+    });
+    document.getElementById('bt-crew-dec').addEventListener('click', () => {
+      if (battleCrewLocal > 0) {
+        battleCrewLocal--;
+        state.crew = Math.max(0, state.crew - 1);
+        sfxCrewLoss();
+        updateUI();
+        flashEl('val-crew');
+        renderLocationModal();
+      }
+    });
+  }
+
+  // attach choice buttons
+  if (showChoices && !locChoiceMade) {
+    document.querySelectorAll('.choice-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ci = parseInt(btn.dataset.ci);
+        const choice = loc.choices[ci];
+        locChoiceMade = choice;
+        applyEffect(choice.effect || {});
+        if (!state.visited[loc.id]) {
+          state.visited[loc.id] = true;
+        }
+        sfxChoose();
+        if (choice.final) {
+          setTimeout(showVictory, 600);
+          document.getElementById('modal-overlay').style.display = 'none';
+          return;
+        }
+        renderLocationModal();
+      });
+    });
+  }
+}
+
+// ─── ROAD EVENTS MODAL ──────────────────────────────────────────────────────
+
+// ─── ROAD EVENTS ────────────────────────────────────────────────────────────
+// Two types:
+//   dice:false → FREE CHOICE: read narration, tap your decision, effect applies
+//   dice:true  → DICE ROLL: roll your real d6, tap matching range, effect applies
+
+let reCurrentEvent = null;
+
+// ── Shared resolved screen (both types end here) ──────────────────────────
+function renderRoadEventResolved(ci) {
+  const ev     = reCurrentEvent;
+  const choice = ev.choices[ci];
+
+  applyEffect(choice.effect || {});
+  flashEl('val-gold');
+  flashEl('val-crew');
+
+  const isPos = choice.tag && (choice.tag.startsWith('Gain') || choice.tag.startsWith('+'));
+  const eyebrow = ev.dice ? 'Road Event — Dice Roll' : 'Road Event — Free Choice';
+
+  const html = `
+    <div class="re-eyebrow">${eyebrow}</div>
+    <div class="modal-title">${ev.title}</div>
+    <p class="nar-para">${ev.narration}</p>
+    <div class="divider"></div>
+    <div class="resolved-box">
+      <div class="resolved-title">${choice.label}</div>
+      <p class="resolved-text">${choice.description}</p>
+      <div class="resolved-tag ${isPos ? '' : 'loss'}">${choice.tag}</div>
+      <button class="done-btn" id="re-done-btn">Continue →</button>
+    </div>
+    <div class="modal-footer-bar">× Road Events</div>
+  `;
+  openModal(html);
+  document.getElementById('re-done-btn').addEventListener('click', () => window.closeModal());
+}
+
+// ── FREE CHOICE flow ──────────────────────────────────────────────────────
+function renderRoadEventFreeChoice(ev) {
+  reCurrentEvent = ev;
+
+  const btnHTML = ev.choices.map((c, i) =>
+    `<button class="choice-btn re-choice-btn" data-ci="${i}">
+       <span class="choice-btn-label">${c.label}</span>
+     </button>`
+  ).join('');
+
+  const html = `
+    <div class="re-eyebrow">Road Event — Free Choice</div>
+    <div class="modal-title">${ev.title}</div>
+    <p class="nar-para">${ev.narration}</p>
+    <div class="divider"></div>
+    <div class="choice-header">What do you do?</div>
+    ${btnHTML}
+    <div class="modal-footer-bar">× Road Events</div>
+  `;
+  openModal(html);
+
+  document.querySelectorAll('.re-choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sfxChoose();
+      renderRoadEventResolved(parseInt(btn.dataset.ci));
+    });
+  });
+}
+
+// ── DICE ROLL flow ────────────────────────────────────────────────────────
+function renderRoadEventDice(ev) {
+  reCurrentEvent = ev;
+
+  const btnHTML = ev.choices.map((c, i) =>
+    `<button class="choice-btn re-choice-btn" data-ci="${i}">
+       <span class="choice-btn-label">${c.label}</span>
+     </button>`
+  ).join('');
+
+  const html = `
+    <div class="re-eyebrow">Road Event — Dice Roll</div>
+    <div class="modal-title">${ev.title}</div>
+    <p class="nar-para">${ev.narration}</p>
+    <div class="re-roll-prompt">
+      <span class="re-dice-icon">🎲</span>
+      <span>Roll 1d6 — tap the result that matches your roll</span>
+    </div>
+    <div class="divider"></div>
+    <div class="choice-header">What did you roll?</div>
+    ${btnHTML}
+    <div class="modal-footer-bar">× Road Events</div>
+  `;
+  openModal(html);
+
+  document.querySelectorAll('.re-choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sfxChoose();
+      renderRoadEventResolved(parseInt(btn.dataset.ci));
+    });
+  });
+}
+
+document.getElementById('btn-road-events').addEventListener('click', () => {
+  const ev = ROAD_EVENTS[Math.floor(Math.random() * ROAD_EVENTS.length)];
+  if (ev.dice) {
+    renderRoadEventDice(ev);
+  } else {
+    renderRoadEventFreeChoice(ev);
+  }
+});
+
+// ─── VICTORY ────────────────────────────────────────────────────────────────
+
+function showVictory() {
+  sfxVictory();
+  document.getElementById('screen-game').classList.remove('active');
+  document.getElementById('screen-victory').classList.add('active');
+  document.getElementById('v-crew').textContent = state.crew;
+  document.getElementById('v-gold').textContent = state.gold;
+  document.getElementById('v-rep').textContent  = state.rep;
+}
+
+document.getElementById('btn-restart').addEventListener('click', () => {
+  sfxClick();
+  state = { crew:8, gold:16, rep:0, visited:{}, units:[] };
+  introPhase = 0;
+  document.getElementById('screen-victory').classList.remove('active');
+  document.getElementById('screen-intro').classList.add('active');
+  renderIntro();
+});
+
+</script>
+</body>
+</html>
