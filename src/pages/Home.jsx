@@ -258,8 +258,12 @@ export default function Home() {
   .spread-hero.kingsman {
     background:
       radial-gradient(ellipse at 50% 60%, rgba(184,146,74,0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at 30% 30%, rgba(138,44,60,0.4) 0%, transparent 55%),
-      linear-gradient(170deg, #2a1418 0%, #6B1F2D 55%, #3a0f17 100%);
+      radial-gradient(ellipse at 30% 30%, rgba(138,44,60,0.3) 0%, transparent 55%),
+      linear-gradient(170deg, rgba(42,20,24,0.78) 0%, rgba(107,31,45,0.55) 55%, rgba(58,15,23,0.78) 100%),
+      url("/kingsman-hero.png");
+    background-size: cover, cover, cover, cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .spread-hero.assassin {
     background:
@@ -347,7 +351,6 @@ export default function Home() {
     font-family: var(--serif-display);
     font-size: 0.55rem;
     letter-spacing: 0.32em;
-    text-transform: uppercase;
     color: var(--vellum);
     opacity: 0.4;
     z-index: 2;
@@ -692,18 +695,12 @@ export default function Home() {
       <div className="spread-hero-rule"></div>
       <p className="spread-hero-subtitle">A game of crowns &amp; quiet counsel</p>
     </div>
-    <div className="spread-hero-placeholder-label">Cover Art</div>
     <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
   </div>
   <div className="spread-info">
     <div className="spread-info-inner">
-      <div className="spread-art kingsman">
-        <svg className="spread-art-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-          <path d="M10 40 L 14 18 L 22 30 L 32 14 L 42 30 L 50 18 L 54 40 Z" />
-          <line x1="10" y1="46" x2="54" y2="46" />
-          <circle cx="32" cy="22" r="1.6" fill="currentColor"/>
-        </svg>
-        <div className="spread-art-placeholder-label">Character Art</div>
+      <div className="spread-art kingsman has-image">
+        <img className="spread-art-img" src="/kingsman-mission.png" alt="The Rumor — a sample mission spread showing the city map and rules"/>
       </div>
       <div className="spread-text">
         <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
