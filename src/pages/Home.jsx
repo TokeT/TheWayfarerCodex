@@ -202,27 +202,13 @@ export default function Home() {
     z-index: 2;
     max-width: 50rem;
   }
-  .spread-hero-icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 1.5rem;
-    opacity: 0.7;
-    color: var(--vellum);
-  }
   .spread-hero-title {
     font-family: var(--serif-display);
     font-size: clamp(2.8rem, 7vw, 5.5rem);
     letter-spacing: 0.16em;
     line-height: 1;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-shadow: 0 2px 30px rgba(0,0,0,0.5);
-  }
-  .spread-hero-rule {
-    width: 80px;
-    height: 1px;
-    background: var(--brass);
-    opacity: 0.7;
-    margin: 0 auto 1.25rem;
   }
   .spread-hero-subtitle {
     font-family: var(--serif-italic);
@@ -686,13 +672,7 @@ export default function Home() {
 <article className="game-spread" id="kingsman">
   <div className="spread-hero kingsman">
     <div className="spread-hero-content">
-      <svg className="spread-hero-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M10 40 L 14 18 L 22 30 L 32 14 L 42 30 L 50 18 L 54 40 Z" />
-        <line x1="10" y1="46" x2="54" y2="46" />
-        <circle cx="32" cy="22" r="1.6" fill="currentColor"/>
-      </svg>
       <h2 className="spread-hero-title">Kingsman</h2>
-      <div className="spread-hero-rule"></div>
       <p className="spread-hero-subtitle">A game of crowns &amp; quiet counsel</p>
     </div>
     <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
@@ -750,13 +730,7 @@ export default function Home() {
 <article className="game-spread flipped" id="mercenary-saga">
   <div className="spread-hero assassin">
     <div className="spread-hero-content">
-      <svg className="spread-hero-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M32 10 L 36 48 L 32 56 L 28 48 Z" />
-        <line x1="22" y1="46" x2="42" y2="46" />
-        <line x1="26" y1="50" x2="38" y2="50" />
-      </svg>
       <h2 className="spread-hero-title">Mercenary Saga</h2>
-      <div className="spread-hero-rule"></div>
       <p className="spread-hero-subtitle">You left with his son. You're going to have to explain that.</p>
     </div>
     <div className="spread-hero-placeholder-label">Cover Art</div>
@@ -820,15 +794,7 @@ export default function Home() {
 <article className="game-spread" id="wizard">
   <div className="spread-hero wizard">
     <div className="spread-hero-content">
-      <svg className="spread-hero-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M32 8 L 24 18 L 24 52 L 40 52 L 40 18 Z" />
-        <rect x="28" y="24" width="3" height="5" />
-        <rect x="33" y="24" width="3" height="5" />
-        <rect x="28" y="34" width="3" height="5" />
-        <rect x="33" y="34" width="3" height="5" />
-      </svg>
       <h2 className="spread-hero-title">The Wizard</h2>
-      <div className="spread-hero-rule"></div>
       <p className="spread-hero-subtitle">Build a tower. Brew a spell. Lose your mind, slowly.</p>
     </div>
     <div className="spread-hero-placeholder-label">Cover Art</div>
@@ -894,13 +860,7 @@ export default function Home() {
 <article className="game-spread flipped" id="tavern-tales">
   <div className="spread-hero tavern">
     <div className="spread-hero-content">
-      <svg className="spread-hero-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path d="M16 14 L 16 50 a 4 4 0 0 0 4 4 L 38 54 a 4 4 0 0 0 4 -4 L 42 14 Z" />
-        <path d="M42 22 L 48 22 a 4 4 0 0 1 4 4 L 52 38 a 4 4 0 0 1 -4 4 L 42 42" />
-        <line x1="16" y1="22" x2="42" y2="22" />
-      </svg>
       <h2 className="spread-hero-title">Tavern Tales Creator</h2>
-      <div className="spread-hero-rule"></div>
       <p className="spread-hero-subtitle">A companion tool for any tabletop session</p>
     </div>
     <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
