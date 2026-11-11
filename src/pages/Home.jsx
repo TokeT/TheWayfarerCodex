@@ -352,7 +352,6 @@ export default function Home() {
     display: block;
     width: 100%;
     height: auto;
-    box-shadow: 0 14px 44px rgba(26, 20, 16, 0.18);
   }
 
 
