@@ -369,23 +369,6 @@ export default function Home() {
   /* the text column inside the info band */
   .spread-text { max-width: 36rem; }
 
-  .spread-text-eyebrow {
-    font-family: var(--serif-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--wine);
-    margin-bottom: 1rem;
-  }
-  .spread-text-eyebrow .rule-inline {
-    display: inline-block;
-    width: 28px;
-    height: 1px;
-    background: var(--wine);
-    vertical-align: middle;
-    margin-right: 0.85rem;
-    opacity: 0.5;
-  }
   .spread-text-title {
     font-family: var(--serif-display);
     font-size: clamp(2rem, 4vw, 2.8rem);
@@ -403,42 +386,32 @@ export default function Home() {
     margin-bottom: 2.5rem;
   }
 
-  .spread-section-label {
-    font-family: var(--serif-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 0.75rem;
-    margin-top: 2rem;
-  }
-  .spread-section-label:first-of-type { margin-top: 0; }
-
   .spread-section-body {
     font-family: var(--serif-body);
     font-size: 1.1rem;
     line-height: 1.7;
     color: var(--ink);
     opacity: 0.85;
+    margin-bottom: 1.5rem;
   }
+  .spread-section-body:last-of-type { margin-bottom: 0; }
   .spread-section-body em {
     font-style: italic;
     color: var(--wine);
   }
 
-  /* facts row — like an ability strip */
+  /* facts strip — now a 2x2 grid */
   .spread-facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 2rem;
     margin-top: 2.5rem;
     padding: 1.75rem 0;
     border-top: 1px solid rgba(26, 20, 16, 0.1);
     border-bottom: 1px solid rgba(26, 20, 16, 0.1);
   }
-  .spread-fact {
-    flex: 1;
-    min-width: 95px;
+  @media (max-width: 420px) {
+    .spread-facts { grid-template-columns: 1fr; gap: 1.25rem; }
   }
   .spread-fact-label {
     font-family: var(--serif-display);
@@ -463,11 +436,6 @@ export default function Home() {
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .spread-cta-group {
-    display: flex;
-    gap: 0.75rem;
     flex-wrap: wrap;
   }
   .spread-status {
@@ -690,16 +658,13 @@ export default function Home() {
         <img className="spread-art-img" src="/kingsman-mission.png" alt="The Rumor — a sample mission spread showing the city map and rules"/>
       </div>
       <div className="spread-text">
-        <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
         <h3 className="spread-text-title">Kingsman</h3>
         <p className="spread-text-subtitle">A game of crowns &amp; quiet counsel</p>
 
-        <div className="spread-section-label">The Lore</div>
         <p className="spread-section-body">
           The kingdom hangs by a thread. The king listens to no one but you &mdash; and you are tired in a way that doesn't sleep off. Each night, a courier arrives with a petition that cannot wait, and by morning your decision is law, signed or unsigned, regretted or not.
         </p>
 
-        <div className="spread-section-label">What You Play</div>
         <p className="spread-section-body">
           A short campaign of impossible choices for <em>two to five players</em>. One advises. The others bring the petitions. A die settles what cannot be argued; a pen remembers what cannot be forgotten.
         </p>
@@ -748,16 +713,13 @@ export default function Home() {
         <img className="spread-art-img" src="/mercenary-mission.jpg" alt="Mercenary Saga — a hand-drawn campaign map with the game open on a phone, showing a location choice"/>
       </div>
       <div className="spread-text">
-        <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
         <h3 className="spread-text-title">Mercenary Saga</h3>
         <p className="spread-text-subtitle">A solo print-and-play saga with an app companion</p>
 
-        <div className="spread-section-label">The Lore</div>
         <p className="spread-section-body">
           You were a lieutenant in the most feared mercenary company in the region. One night you took the gold, took some of the crew, and walked out. What you didn't plan for was who you'd have to <em>step over</em> on the way out &mdash; and now he's coming to collect what you owe him.
         </p>
 
-        <div className="spread-section-label">What You Play</div>
         <p className="spread-section-body">
           A <em>solo print-and-play board game</em> with an app companion. Print the map, grab a pen and a D6, open the app in your browser. You command a mercenary company across a hand-drawn fantasy map, making morally grey decisions, building your crew, and trying to outrun the consequences of a betrayal that started everything.
         </p>
@@ -783,10 +745,7 @@ export default function Home() {
 
         <div className="spread-cta-row">
           <span className="spread-status">Chapter I &mdash; Demo</span>
-          <div className="spread-cta-group">
-            <a href="/mercenary-saga/play" className="spread-cta ghost">Play in browser</a>
-            <a href="https://nightcloak-games.itch.io/mercenary-saga" target="_blank" rel="noopener" className="spread-cta">Get on itch.io <span className="arrow">&rarr;</span></a>
-          </div>
+          <a href="https://nightcloak-games.itch.io/mercenary-saga" target="_blank" rel="noopener" className="spread-cta">Get on itch.io <span className="arrow">&rarr;</span></a>
         </div>
       </div>
     </div>
@@ -809,16 +768,13 @@ export default function Home() {
         <img className="spread-art-img" src="/tavern-pager.jpg" alt="The Tavern Tales Creator interface, end to end"/>
       </div>
       <div className="spread-text">
-        <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Tools</div>
         <h3 className="spread-text-title">Tavern Tales Creator</h3>
         <p className="spread-text-subtitle">A generator of inns, taverns, and waystations</p>
 
-        <div className="spread-section-label">What It Does</div>
         <p className="spread-section-body">
           Roll a complete tavern in a single click &mdash; the keeper, the staff, the patrons in the common room, the bill of fare, the rumors overheard, and a sketched floor plan. Drop one into any session that needs a place to sit down.
         </p>
 
-        <div className="spread-section-label">Who It's For</div>
         <p className="spread-section-body">
           <em>Any game master, any system.</em> Designed for the half-hour before play when you remember the party is heading somewhere new and you have nothing prepared. Lock the bits you like; reroll the rest until it fits.
         </p>
