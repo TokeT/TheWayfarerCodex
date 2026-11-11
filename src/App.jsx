@@ -1,7 +1,6 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import InnGenerator from "./pages/InnGenerator.jsx";
-import MercenarySaga from "./pages/MercenarySaga.jsx";
 
 const NAV_CSS = `
   .global-nav {
@@ -85,7 +84,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/tavern-tales" element={<InnGenerator />} />
-        <Route path="/mercenary-saga" element={<MercenarySaga />} />
+        {/* /mercenary-saga subpage removed — redirect any old bookmarks back to the homepage anchor */}
+        <Route path="/mercenary-saga" element={<Navigate to="/#mercenary-saga" replace />} />
+        {/* Catch-all for any other unknown URL */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
