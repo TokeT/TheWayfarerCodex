@@ -253,9 +253,13 @@ export default function Home() {
   }
   .spread-hero.assassin {
     background:
-      radial-gradient(ellipse at 70% 40%, rgba(60,80,120,0.25) 0%, transparent 50%),
-      radial-gradient(ellipse at 30% 70%, rgba(74,22,32,0.3) 0%, transparent 55%),
-      linear-gradient(170deg, #0a0a14 0%, #1A1428 60%, #2a1f3a 100%);
+      radial-gradient(ellipse at 50% 60%, rgba(184,146,74,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 40%, rgba(60,80,120,0.22) 0%, transparent 55%),
+      linear-gradient(170deg, rgba(10,10,20,0.78) 0%, rgba(26,20,40,0.55) 55%, rgba(42,31,58,0.78) 100%),
+      url("/mercenary-hero.jpg");
+    background-size: cover, cover, cover, cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .spread-hero.tavern {
     background:
@@ -726,18 +730,12 @@ export default function Home() {
       <h2 className="spread-hero-title">Mercenary Saga</h2>
       <p className="spread-hero-subtitle">You left with his son. You're going to have to explain that.</p>
     </div>
-    <div className="spread-hero-placeholder-label">Cover Art</div>
     <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
   </div>
   <div className="spread-info">
     <div className="spread-info-inner">
-      <div className="spread-art assassin">
-        <svg className="spread-art-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-          <path d="M32 10 L 36 48 L 32 56 L 28 48 Z" />
-          <line x1="22" y1="46" x2="42" y2="46" />
-          <line x1="26" y1="50" x2="38" y2="50" />
-        </svg>
-        <div className="spread-art-placeholder-label">Character Art</div>
+      <div className="spread-art assassin has-image">
+        <img className="spread-art-img" src="/mercenary-mission.jpg" alt="Mercenary Saga — a hand-drawn campaign map with the game open on a phone, showing a location choice"/>
       </div>
       <div className="spread-text">
         <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
