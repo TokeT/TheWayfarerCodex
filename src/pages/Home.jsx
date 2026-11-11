@@ -257,12 +257,6 @@ export default function Home() {
       radial-gradient(ellipse at 30% 70%, rgba(74,22,32,0.3) 0%, transparent 55%),
       linear-gradient(170deg, #0a0a14 0%, #1A1428 60%, #2a1f3a 100%);
   }
-  .spread-hero.wizard {
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(184,146,74,0.18) 0%, transparent 45%),
-      radial-gradient(ellipse at 80% 20%, rgba(120,80,180,0.3) 0%, transparent 50%),
-      linear-gradient(170deg, #1f1a3a 0%, #3a2a6a 50%, #1a1428 100%);
-  }
   .spread-hero.tavern {
     background:
       radial-gradient(ellipse at 50% 70%, rgba(255,200,120,0.18) 0%, transparent 50%),
@@ -361,7 +355,6 @@ export default function Home() {
   /* per-game art tints */
   .spread-art.kingsman { background: linear-gradient(170deg, #2a1418 0%, #6B1F2D 60%, #3a0f17 100%); }
   .spread-art.assassin { background: linear-gradient(170deg, #0a0a14 0%, #1A1428 60%, #2a1f3a 100%); }
-  .spread-art.wizard   { background: linear-gradient(170deg, #1f1a3a 0%, #3a2a6a 55%, #1a1428 100%); }
   .spread-art.tavern   { background: linear-gradient(170deg, #2a1810 0%, #6B4A28 55%, #3a2418 100%); }
 
   /* the text column inside the info band */
@@ -783,72 +776,6 @@ export default function Home() {
         <div className="spread-cta-row">
           <span className="spread-status">Chapter I Now</span>
           <a href="/mercenary-saga" className="spread-cta">Read more <span className="arrow">&rarr;</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-
-
-{/* ============ WIZARD ============ */}
-<article className="game-spread" id="wizard">
-  <div className="spread-hero wizard">
-    <div className="spread-hero-content">
-      <h2 className="spread-hero-title">The Wizard</h2>
-      <p className="spread-hero-subtitle">Build a tower. Brew a spell. Lose your mind, slowly.</p>
-    </div>
-    <div className="spread-hero-placeholder-label">Cover Art</div>
-    <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
-  </div>
-  <div className="spread-info">
-    <div className="spread-info-inner">
-      <div className="spread-art wizard">
-        <svg className="spread-art-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-          <path d="M32 8 L 24 18 L 24 52 L 40 52 L 40 18 Z" />
-          <rect x="28" y="24" width="3" height="5" />
-          <rect x="33" y="24" width="3" height="5" />
-          <rect x="28" y="34" width="3" height="5" />
-          <rect x="33" y="34" width="3" height="5" />
-        </svg>
-        <div className="spread-art-placeholder-label">Character Art</div>
-      </div>
-      <div className="spread-text">
-        <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
-        <h3 className="spread-text-title">The Wizard</h3>
-        <p className="spread-text-subtitle">A wizard's diary, kept badly &mdash; <em>working title</em></p>
-
-        <div className="spread-section-label">The Lore</div>
-        <p className="spread-section-body">
-          You inherited a tower, a goat, and a manuscript you cannot read. The manuscript hums on certain afternoons. The goat is increasingly opinionated. You have a vague notion that the both of them are connected, and a stronger notion that the magic is starting to work on you in return.
-        </p>
-
-        <div className="spread-section-label">What You Play</div>
-        <p className="spread-section-body">
-          A <em>cozy-creepy journaling game</em> for one to four wizards. Each evening you brew, study, or wander &mdash; a die tells you what answers back. Over many evenings, you build a tower of pages, a grimoire of half-remembered spells, and a sense that you are not quite who you were.
-        </p>
-
-        <div className="spread-facts">
-          <div className="spread-fact">
-            <div className="spread-fact-label">Players</div>
-            <div className="spread-fact-value">1&ndash;4</div>
-          </div>
-          <div className="spread-fact">
-            <div className="spread-fact-label">Format</div>
-            <div className="spread-fact-value">Print &amp; play</div>
-          </div>
-          <div className="spread-fact">
-            <div className="spread-fact-label">You'll need</div>
-            <div className="spread-fact-value">Die &amp; pen</div>
-          </div>
-          <div className="spread-fact">
-            <div className="spread-fact-label">Time</div>
-            <div className="spread-fact-value">Many evenings</div>
-          </div>
-        </div>
-
-        <div className="spread-cta-row">
-          <span className="spread-status">In Development</span>
-          <a href="#" className="spread-cta">Read more <span className="arrow">&rarr;</span></a>
         </div>
       </div>
     </div>
