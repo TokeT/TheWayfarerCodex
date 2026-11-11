@@ -339,19 +339,20 @@ export default function Home() {
     opacity: 0.4;
     z-index: 2;
   }
-  /* When the portrait slot holds a real screenshot or painting, drop the
-     placeholder framing and let the image dictate height. */
+  /* When the portrait slot holds a real screenshot or painting:
+     keep the 3/4 aspect ratio from .spread-art so all images are the
+     same size across all game spreads, and crop with object-fit: cover
+     if the image's natural aspect doesn't match. */
   .spread-art.has-image {
-    aspect-ratio: auto;
     background: transparent;
     border: none;
-    overflow: visible;
   }
   .spread-art.has-image::before { display: none; }
   .spread-art-img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
 
@@ -457,6 +458,11 @@ export default function Home() {
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .spread-cta-group {
+    display: flex;
+    gap: 0.75rem;
     flex-wrap: wrap;
   }
   .spread-status {
@@ -771,8 +777,11 @@ export default function Home() {
         </div>
 
         <div className="spread-cta-row">
-          <span className="spread-status">Chapter I — Demo</span>
-          <a href="/mercenary-saga" className="spread-cta">Read more <span className="arrow">&rarr;</span></a>
+          <span className="spread-status">Chapter I &mdash; Demo</span>
+          <div className="spread-cta-group">
+            <a href="/mercenary-saga/play" className="spread-cta ghost">Play in browser</a>
+            <a href="https://nightcloak-games.itch.io/mercenary-saga" target="_blank" rel="noopener" className="spread-cta">Get on itch.io <span className="arrow">&rarr;</span></a>
+          </div>
         </div>
       </div>
     </div>
