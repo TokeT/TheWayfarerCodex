@@ -722,12 +722,12 @@ export default function Home() {
 </article>
 
 
-{/* ============ MERCENARY SAGA (was: ASSASSIN) ============ */}
+{/* ============ MERCENARY SAGA ============ */}
 <article className="game-spread flipped" id="mercenary-saga">
   <div className="spread-hero assassin">
     <div className="spread-hero-content">
       <h2 className="spread-hero-title">Mercenary Saga</h2>
-      <p className="spread-hero-subtitle">You left with his son. You're going to have to explain that.</p>
+      <p className="spread-hero-subtitle">You took the gold. You took the crew. He's coming to collect.</p>
     </div>
     <svg className="spread-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="100%" height="100%" fill="url(#tear-vellum-pattern)"/></svg>
   </div>
@@ -739,16 +739,16 @@ export default function Home() {
       <div className="spread-text">
         <div className="spread-text-eyebrow"><span className="rule-inline"></span>The Games</div>
         <h3 className="spread-text-title">Mercenary Saga</h3>
-        <p className="spread-text-subtitle">A solo browser saga of crews, choices, and long roads</p>
+        <p className="spread-text-subtitle">A solo print-and-play saga with an app companion</p>
 
         <div className="spread-section-label">The Lore</div>
         <p className="spread-section-body">
-          You worked for the wrong man six years. The night you left, you took his son with you. Ahead is the road, the borderlands, and every choice you can't unmake.
+          You were a lieutenant in the most feared mercenary company in the region. One night you took the gold, took some of the crew, and walked out. What you didn't plan for was who you'd have to <em>step over</em> on the way out &mdash; and now he's coming to collect what you owe him.
         </p>
 
         <div className="spread-section-label">What You Play</div>
         <p className="spread-section-body">
-          A <em>solo browser game</em> told one chapter at a time. Crew, gold, and reputation &mdash; three things to spend, all of them too few. Each location is a choice. Each choice costs.
+          A <em>solo print-and-play board game</em> with an app companion. Print the map, grab a pen and a D6, open the app in your browser. You command a mercenary company across a hand-drawn fantasy map, making morally grey decisions, building your crew, and trying to outrun the consequences of a betrayal that started everything.
         </p>
 
         <div className="spread-facts">
@@ -758,20 +758,20 @@ export default function Home() {
           </div>
           <div className="spread-fact">
             <div className="spread-fact-label">Format</div>
-            <div className="spread-fact-value">Browser</div>
+            <div className="spread-fact-value">Print &amp; play + app</div>
+          </div>
+          <div className="spread-fact">
+            <div className="spread-fact-label">You'll need</div>
+            <div className="spread-fact-value">Printer, pen, D6</div>
           </div>
           <div className="spread-fact">
             <div className="spread-fact-label">Chapter</div>
-            <div className="spread-fact-value">I, ongoing</div>
-          </div>
-          <div className="spread-fact">
-            <div className="spread-fact-label">Time</div>
-            <div className="spread-fact-value">~30 min</div>
+            <div className="spread-fact-value">I: Raise the Banner</div>
           </div>
         </div>
 
         <div className="spread-cta-row">
-          <span className="spread-status">Chapter I Now</span>
+          <span className="spread-status">Chapter I — Demo</span>
           <a href="/mercenary-saga" className="spread-cta">Read more <span className="arrow">&rarr;</span></a>
         </div>
       </div>
