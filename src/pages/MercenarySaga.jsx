@@ -134,6 +134,7 @@ export default function MercenarySaga() {
           font-size: 1.1rem; line-height: 1.75; text-align: center;
           margin-bottom: 3rem; opacity: 0.85;
         }
+        .ms-howitplays-intro em { font-style: italic; color: var(--wine); }
         .ms-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         @media (max-width: 720px) { .ms-stats { grid-template-columns: 1fr; gap: 1.25rem; } }
         .ms-stat {
@@ -149,6 +150,31 @@ export default function MercenarySaga() {
         .ms-stat-body {
           font-family: var(--serif-body);
           font-size: 1rem; line-height: 1.6; opacity: 0.88;
+        }
+
+        /* ===================== WHAT YOU GET ===================== */
+        .ms-get-title {
+          font-family: var(--serif-display);
+          font-size: clamp(1.5rem, 3vw, 2rem);
+          letter-spacing: 0.08em; text-align: center; margin-bottom: 2.5rem;
+        }
+        .ms-get-grid {
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+        }
+        @media (max-width: 720px) { .ms-get-grid { grid-template-columns: 1fr; gap: 1rem; } }
+        .ms-get-item {
+          padding: 1.5rem;
+          border: 1px solid rgba(26, 20, 16, 0.12);
+          text-align: center;
+        }
+        .ms-get-label {
+          font-family: var(--serif-display);
+          font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+          color: var(--wine); margin-bottom: 0.6rem;
+        }
+        .ms-get-body {
+          font-family: var(--serif-body);
+          font-size: 1rem; line-height: 1.55; opacity: 0.85;
         }
 
         /* ===================== CHAPTERS ===================== */
@@ -186,6 +212,7 @@ export default function MercenarySaga() {
           font-family: var(--serif-body);
           font-size: 1.05rem; line-height: 1.65; opacity: 0.85;
         }
+        .ms-chapter-body em { font-style: italic; color: var(--wine); }
 
         /* ===================== CTAs ===================== */
         .ms-cta-row {
@@ -209,6 +236,11 @@ export default function MercenarySaga() {
           border-color: rgba(107, 31, 45, 0.4);
         }
         .ms-cta.ghost:hover { background: rgba(107, 31, 45, 0.06); }
+        .ms-cta-note {
+          margin-top: 1.5rem; text-align: center;
+          font-family: var(--serif-italic); font-style: italic;
+          font-size: 0.95rem; color: var(--ink); opacity: 0.6;
+        }
 
         /* ===================== PARTICULARS ===================== */
         .ms-particulars {
@@ -265,7 +297,7 @@ export default function MercenarySaga() {
             <div className="ms-hero-eyebrow">The Games · Nightcloak</div>
             <h1 className="ms-hero-title">Mercenary&nbsp;Saga</h1>
             <div className="ms-hero-rule"></div>
-            <p className="ms-hero-tagline">You left with his son. You're going to have to explain that.</p>
+            <p className="ms-hero-tagline">You took the gold. You took the crew. He's coming to collect.</p>
             <div className="ms-hero-status">Chapter I — Available Now</div>
           </div>
           <svg className="ms-hero-tear" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -279,7 +311,7 @@ export default function MercenarySaga() {
             <div className="ms-eyebrow">The Pitch</div>
             <div className="ms-eyebrow-rule"></div>
             <p className="ms-pitch-body">
-              A chapter-based saga of <em>impossible bargains, hard roads,</em> and the kind of mistakes that take years to walk back.
+              A solo print-and-play saga of <em>morally grey decisions, hard roads,</em> and a betrayal you can't outrun.
             </p>
           </div>
         </section>
@@ -289,9 +321,9 @@ export default function MercenarySaga() {
           <div className="ms-narrow">
             <h2 className="ms-setup-title">The Setup</h2>
             <div className="ms-setup-body">
-              <p>You worked for Valdris six years. Long enough to learn what he does to people who leave. Long enough to have done some of it yourself.</p>
-              <p>Two nights ago you left. Edric &mdash; <em>seventeen, capable, Valdris's son</em> &mdash; came with you. By morning, his father will know.</p>
-              <p>Ahead, the road splits. The borderlands begin. Whatever you're going to build, you build from here.</p>
+              <p>You were a lieutenant in the most feared mercenary company in the region. Six years. You knew what loyalty bought, and what it cost.</p>
+              <p>One night you took the gold. You took some of the crew. You walked out. What you didn't plan for was <em>who you'd have to step over</em> on the way out.</p>
+              <p>Now you're building something new from nothing &mdash; while the man you betrayed is quietly, methodically, coming to collect what you owe him.</p>
             </div>
           </div>
         </section>
@@ -301,7 +333,7 @@ export default function MercenarySaga() {
           <div className="ms-wide">
             <h2 className="ms-howitplays-title">How It Plays</h2>
             <p className="ms-howitplays-intro">
-              Each turn you arrive somewhere. A plague town. A monastery out of brothers. A toll bridge held by men with no other prospects. You choose what to do. The choice costs something.
+              You command a mercenary company across a <em>hand-drawn fantasy map</em>. Each turn you arrive somewhere &mdash; a broken monastery, an old battlefield, a merchant camp &mdash; and choose what to do. The app tracks what you spend; the map tracks where you've been. The choice costs something.
             </p>
             <div className="ms-stats">
               <div className="ms-stat">
@@ -320,40 +352,64 @@ export default function MercenarySaga() {
           </div>
         </section>
 
+        {/* ============ WHAT YOU GET ============ */}
+        <section className="ms-section">
+          <div className="ms-wide">
+            <h2 className="ms-get-title">What You Get</h2>
+            <div className="ms-get-grid">
+              <div className="ms-get-item">
+                <div className="ms-get-label">The App</div>
+                <div className="ms-get-body">Runs in your browser. No install. Tracks your crew, your gold, your reputation, and the choices you can't take back.</div>
+              </div>
+              <div className="ms-get-item">
+                <div className="ms-get-label">Map PDF</div>
+                <div className="ms-get-body">A hand-drawn fantasy map. Print at home on A4 or Letter. Draw your path in pencil as you go.</div>
+              </div>
+              <div className="ms-get-item">
+                <div className="ms-get-label">Rules PDF</div>
+                <div className="ms-get-body">Everything you need, three pages. A black-and-white printer, a pen, and one D6 is all it takes.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ============ CHAPTERS ============ */}
         <section className="ms-section">
           <div className="ms-wide">
             <h2 className="ms-chapters-title">The Saga</h2>
-            <p className="ms-chapters-intro">Told one chapter at a time. The first is finished. More are coming.</p>
+            <p className="ms-chapters-intro">Told one chapter at a time. The first is a demo. The second depends on you.</p>
 
             <div className="ms-chapter">
               <div className="ms-chapter-head">
-                <div className="ms-chapter-name"><span className="num">I.</span>The Road to Veldmark</div>
-                <span className="ms-chapter-status available">Available</span>
+                <div className="ms-chapter-name"><span className="num">I.</span>Raise the Banner</div>
+                <span className="ms-chapter-status available">Available &mdash; Demo</span>
               </div>
               <p className="ms-chapter-body">
-                The first road. The first choices. Eight chosen, sixteen gold, no reputation &mdash; and a man on your trail who taught you how to hunt.
+                The borderlands. The first road, the first choices, and a company built out of whoever you could talk into leaving with you. I made this chapter because I love drawing maps and designing games, and I wanted to find out if other people would want to play something like this. <em>If you do, leave a comment on itch.io.</em> That feedback is what decides whether Chapter II gets made.
               </p>
             </div>
 
             <div className="ms-chapter">
               <div className="ms-chapter-head">
-                <div className="ms-chapter-name"><span className="num">II.</span>The Veldmark Holdings</div>
-                <span className="ms-chapter-status">In Development</span>
+                <div className="ms-chapter-name"><span className="num">II.</span>To Be Decided</div>
+                <span className="ms-chapter-status">Pending</span>
               </div>
               <p className="ms-chapter-body">
-                You arrive somewhere. You have to hold it. Or sell it. Or leave it behind. The road keeps going. So does the saga.
+                If Chapter I earns its keep, the road continues. The map gets bigger, the company gets older, and the man on your trail gets closer. For now: comments on itch decide whether it gets made.
               </p>
             </div>
 
             <div className="ms-cta-row">
-              <a href="/mercenary-saga/play" className="ms-cta">
-                Play in your browser <span className="arrow">&rarr;</span>
+              <a href="https://nightcloak-games.itch.io/mercenary-saga" target="_blank" rel="noopener" className="ms-cta">
+                Get the full game on itch.io <span className="arrow">&rarr;</span>
               </a>
-              <a href="https://nightcloak-games.itch.io/mercenary-saga" target="_blank" rel="noopener" className="ms-cta ghost">
-                Find it on itch.io
+              <a href="/mercenary-saga/play" className="ms-cta ghost">
+                Try the app in your browser
               </a>
             </div>
+            <p className="ms-cta-note">
+              The full game includes the app, the map PDF, and the rules PDF. The browser-only version lets you try the app without the printed map.
+            </p>
           </div>
         </section>
 
@@ -370,15 +426,15 @@ export default function MercenarySaga() {
             </div>
             <div>
               <div className="ms-particular-label">Format</div>
-              <div className="ms-particular-value">Browser</div>
+              <div className="ms-particular-value">Print &amp; play + app</div>
             </div>
             <div>
-              <div className="ms-particular-label">Time</div>
-              <div className="ms-particular-value">~30 min</div>
+              <div className="ms-particular-label">You'll need</div>
+              <div className="ms-particular-value">Printer, pen, D6</div>
             </div>
             <div>
               <div className="ms-particular-label">Chapter</div>
-              <div className="ms-particular-value">I, ongoing</div>
+              <div className="ms-particular-value">I: Raise the Banner</div>
             </div>
           </div>
         </section>
