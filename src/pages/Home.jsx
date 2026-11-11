@@ -283,6 +283,7 @@ export default function Home() {
     .spread-hero-content { max-width: 100%; }
   }
 
+  /* Default (non-flipped) layout: image on left in narrow col, text on right in wide col */
   .spread-info-inner {
     max-width: 64rem;
     margin: 0 auto;
@@ -295,10 +296,14 @@ export default function Home() {
     .spread-info-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   }
 
-  /* alternating layout for variety — every other game flips */
+  /* Flipped layout: text on left (still in the wide col), image on right (still in the narrow col) */
+  .game-spread.flipped .spread-info-inner {
+    grid-template-columns: 7fr 5fr;
+  }
   .game-spread.flipped .spread-info-inner > .spread-art { order: 2; }
   .game-spread.flipped .spread-info-inner > .spread-text { order: 1; }
   @media (max-width: 720px) {
+    .game-spread.flipped .spread-info-inner { grid-template-columns: 1fr; }
     .game-spread.flipped .spread-info-inner > .spread-art,
     .game-spread.flipped .spread-info-inner > .spread-text { order: initial; }
   }
