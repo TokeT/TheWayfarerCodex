@@ -72,7 +72,6 @@ export default function Home() {
     z-index: 2;
     max-width: 50rem;
   }
-  .hero-sigil { margin: 0 auto 2rem; width: 56px; height: 56px; opacity: 0.92; }
   .hero-name {
     font-family: var(--serif-display);
     font-size: clamp(2.6rem, 7vw, 5.5rem);
@@ -80,14 +79,6 @@ export default function Home() {
     line-height: 1;
     color: var(--vellum);
     margin-bottom: 1.25rem;
-  }
-  .hero-tagline {
-    font-family: var(--serif-italic);
-    font-style: italic;
-    font-size: clamp(1.15rem, 2.3vw, 1.5rem);
-    color: var(--vellum);
-    opacity: 0.82;
-    margin-bottom: 2rem;
   }
   .hero-tagline-rule { width: 60px; height: 1px; background: var(--brass); opacity: 0.6; margin: 0 auto 2rem; }
   .hero-intro {
@@ -173,18 +164,19 @@ export default function Home() {
     padding: 0;
   }
 
-  /* HERO BAND — large painted-feel band per game */
+  /* HERO BAND — large painted-feel band per game.
+     Title + subtitle are vertically centered (align-items: center). */
   .spread-hero {
     position: relative;
     height: 70vh;
     min-height: 520px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--vellum);
     overflow: hidden;
-    padding: 0 2rem 7rem;
+    padding: 2rem;
   }
   .spread-hero::before {
     /* atmospheric overlay — this is what would sit behind painted cover art */
@@ -279,7 +271,7 @@ export default function Home() {
   }
   @media (max-width: 720px) {
     .spread-info { padding: 3rem 1.25rem 4rem; }
-    .spread-hero { height: auto; min-height: 60vh; padding: 5rem 1.25rem 5rem; }
+    .spread-hero { height: auto; min-height: 60vh; padding: 4rem 1.25rem; }
     .spread-hero-content { max-width: 100%; }
   }
 
@@ -615,14 +607,8 @@ export default function Home() {
 {/* ============ HERO ============ */}
 <header className="hero">
   <div className="hero-content">
-    <svg className="hero-sigil" viewBox="0 0 64 64" fill="none" stroke="#B8924A" stroke-width="1.1" aria-hidden="true">
-      <path d="M44 18 a 14 14 0 1 0 0 28 a 11 11 0 1 1 0 -28 z" />
-      <path d="M32 52 l 3 -5 l 3 5 l -3 2 z" fill="#B8924A" opacity="0.6"/>
-      <circle cx="35" cy="49" r="0.8" fill="#B8924A" />
-    </svg>
     <h1 className="hero-name">Nightcloak&nbsp;Games</h1>
     <div className="hero-tagline-rule"></div>
-    <p className="hero-tagline">Small games for long nights.</p>
     <p className="hero-intro">
       Tabletop role-playing games you can print, fold, and play tonight. A die, a pen, and a story worth the evening &mdash; nothing more required.
     </p>
@@ -838,10 +824,10 @@ export default function Home() {
       <button type="submit">Subscribe</button>
     </form>
     <ul className="footer-links">
-      <li><a href="#kingsman">The Games</a></li>
-      <li><a href="#about">The Studio</a></li>
+      <li><a href="#kingsman">Kingsman</a></li>
+      <li><a href="#mercenary-saga">Mercenary Saga</a></li>
       <li><a href="/tavern-tales">Tavern Tales</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#about">The Studio</a></li>
     </ul>
     <p className="footer-copyright">&copy; 2026 Nightcloak Games &middot; All rights reserved</p>
   </div>
