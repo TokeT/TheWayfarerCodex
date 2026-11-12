@@ -20,7 +20,6 @@ const NAV_CSS = `
   .global-nav-brand {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     color: #F3F0E8;
     text-decoration: none;
     opacity: 0.92;
@@ -51,9 +50,9 @@ const NAV_CSS = `
   .global-nav-links a:hover { opacity: 1; }
   @media (max-width: 720px) {
     .global-nav { padding: 0.75rem 1.25rem; }
-    .global-nav-links { gap: 1.25rem; }
+    .global-nav-links { gap: 1rem; }
     .global-nav-brand-text { font-size: 0.7rem; letter-spacing: 0.25em; }
-    .global-nav-links a { font-size: 0.6rem; letter-spacing: 0.25em; }
+    .global-nav-links a { font-size: 0.55rem; letter-spacing: 0.22em; }
   }
 `;
 
@@ -61,15 +60,12 @@ function GlobalNav() {
   return (
     <nav className="global-nav" aria-label="Primary">
       <Link to="/" className="global-nav-brand">
-        <svg viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
-          <path d="M22 7 a 10 10 0 1 0 0 18 a 8 8 0 1 1 0 -18 z" />
-          <path d="M16 28 l 2 -3 l 2 3 l -2 1 z" />
-        </svg>
         <span className="global-nav-brand-text">Nightcloak Games</span>
       </Link>
       <ul className="global-nav-links">
-        <li><a href="/#kingsman">The Games</a></li>
-        <li><a href="/tavern-tales">Tavern Tales</a></li>
+        <li><a href="/#kingsman">Kingsman</a></li>
+        <li><a href="/#mercenary-saga">Mercenary Saga</a></li>
+        <li><a href="/#tavern-tales">Tavern Tales</a></li>
         <li><a href="/#about">The Studio</a></li>
       </ul>
     </nav>
